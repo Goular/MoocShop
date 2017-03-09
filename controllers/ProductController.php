@@ -6,12 +6,12 @@ class ProductController extends \yii\web\Controller
 {
     public function actionDetail()
     {
-        return $this->render('detail');
+        return $this->renderPartial('detail');
     }
 
     public function actionIndex()
     {
-        return $this->render('index');
+        return $this->renderPartial('index');
     }
 
 }
