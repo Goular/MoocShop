@@ -10,7 +10,8 @@ class IndexController extends Controller
 {
     public function actionIndex()
     {
-        return $this->renderPartial("index");
+        $this->layout = "layout_parent_none";
+        return $this->render("index");
     }
 
 }

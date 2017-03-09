@@ -14,3 +14,14 @@
     方法(1):在Action中添加一句$this->layout = false;
     方法(2)：使用$this->renderPartial()方法即可.
 </pre>
+
+### 公用的页头与页尾如何解决？
+<pre>
+    使用yii2的组件layout即可实现，具体步骤如下:
+    1.在view/layout/文件夹中创建父布局文件;
+    2.在父布局文件中直接输出<?=$content?>(注意:$content为当前对象的内置对象)
+
+    注意:当前的对象存在两种的布局内容，一种是带导航条的头尾布局，另一种的不带导航条的头尾布局
+    (1)带导航条的布局名称:layout_parent_nav
+    (2)不带导航条的布局名称:layout_parent_none
+</pre>
