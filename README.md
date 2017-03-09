@@ -24,4 +24,8 @@
     注意:当前的对象存在两种的布局内容，一种是带导航条的头尾布局，另一种的不带导航条的头尾布局
     (1)带导航条的布局名称:layout_parent_nav
     (2)不带导航条的布局名称:layout_parent_none
+
+    使用方式:
+    1.控制器全局范围使用，即在当前类中添加覆盖属性layout的语句即可:public $layout = "layout_parent_none";
+    2.局部使用:在action的范围内使用$layout = "layout_parent_nav"即可;
 </pre>
