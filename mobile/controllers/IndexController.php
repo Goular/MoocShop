@@ -1,14 +1,15 @@
 <?php
 
-namespace app\modules\controllers;
+namespace app\mobile\controllers;
 
 use yii\web\Controller;
 
 /**
- * Default controller for the `admin` module
+ * Default controller for the `mobile` module
  */
-class DefaultController extends Controller
+class IndexController extends Controller
 {
+    public $defaultAction = 'index';
     /**
      * Renders the index view for the module
      * @return string
@@ -16,7 +17,6 @@ class DefaultController extends Controller
     public function actionIndex()
     {
         $this->layout = 'layout_parent_none';
-//        var_dump($this->layout);
         return $this->render('index');
     }
 }

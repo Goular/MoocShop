@@ -39,14 +39,46 @@
     ];
 </pre>
 
-### 利用GII创建后台分组
+### 利用GII创建后台模块
 <pre>
-    使用generate Module即可，会生成一个文件夹放置到module中，访问形式index.php?r=admin/controller/action
+    1.使用generate Module即可，会生成一个文件夹放置到module中，访问形式index.php?r=admin/controller/action
 
-    模块默认的layout会选取父项目的view文件夹的layout中的main.php,所以需要自己覆盖view文件夹的内容
+    2.模块默认的layout会选取父项目的view文件夹的layout中的main.php,所以需要自己覆盖view文件夹的内容
 
-    创建的时候 Modals Class填写:app/modules/admin
-    ModuleID我们写:admin 即可
+    (注意)创建的时候 Modals Class填写:app/admin/modules,app/mobile/modules(不要为了其他模块统一，写成app/modules/admin,app/modules/mobile,这种写法慕课网是教错了) ,注意，这里默认会以第二个单词作为根目录的文件夹名字，如果第二个单词重复，就会出现覆盖现象，看了文档，我发现第二个单词写我们的模块内容名字是正确的，慕课在这个位置是有问题的。
+    (注意)ModuleID我们写:admin 即可
 
     （重点）默认内容，view中除了错误页面(view/site/error)会被继承，父文件夹的view的内容都不可以被子view文件夹调用
+
+
+    记得到项目的config/web.php添加模块配置，不要加到gii的if代码段中，因为那是开发模式，调到生产模式就会找不到的.
+
+    3.模块创建//从config.php加载配置来初始化模块
+        \Yii::configure($this, require(__DIR__ . '/config.php'));
+
+    4.模块设置默认内容:
+        class IndexController extends Controller
+        {
+            public $defaultAction = 'index';
+            /**
+             * Renders the index view for the module
+             * @return string
+             */
+            public function actionIndex()
+            {
+                $this->layout = 'layout_parent_none';
+                return $this->render('index');
+            }
+        }
+
+    模块设置默认的控制器(config.php)，文档有教
+        return [
+            'components' => [
+                // list of component configurations
+            ],
+            'params' => [
+                // list of parameters
+            ],
+            'defaultRoute'=>'index'
+        ];
 </pre>

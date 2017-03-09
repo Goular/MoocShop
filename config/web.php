@@ -50,9 +50,8 @@ $config = [
     'params' => $params,
     //配置模块的使用
     "modules" => [
-        'admin' => [
-            'class' => 'app\modules\admin'
-        ]
+        'admin' => ['class' => 'app\admin\modules'],//这个admin的文件目录和名字创建时慕课教我的，感觉不太对
+        'mobile' => ['class' => 'app\mobile\modules']//根据文档写的类名比较合适，而且命名空间就是app\mobile\controller,是合适的
     ]
 ];
 

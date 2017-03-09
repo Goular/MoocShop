@@ -1,16 +1,16 @@
 <?php
 
-namespace app\modules;
+namespace app\admin;
 
 /**
  * admin module definition class
  */
-class admin extends \yii\base\Module
+class modules extends \yii\base\Module
 {
     /**
      * @inheritdoc
      */
-    public $controllerNamespace = 'app\modules\controllers';
+    public $controllerNamespace = 'app\admin\controllers';
 
     /**
      * @inheritdoc
@@ -18,7 +18,7 @@ class admin extends \yii\base\Module
     public function init()
     {
         parent::init();
-
+        \Yii::configure($this, require(__DIR__ . '/config.php'));
         // custom initialization code goes here
     }
 }
