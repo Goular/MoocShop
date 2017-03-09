@@ -4,6 +4,8 @@ namespace app\controllers;
 
 class OrderController extends \yii\web\Controller
 {
+    public $layout = "layout_parent_nav";
+
     public function actionIndex()
     {
         return $this->render('index');
@@ -11,7 +13,7 @@ class OrderController extends \yii\web\Controller
 
     public function actionCheck()
     {
-        return $this->renderPartial('check');
+        return $this->render('check');
     }
 
 }

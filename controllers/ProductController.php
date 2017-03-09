@@ -4,14 +4,16 @@ namespace app\controllers;
 
 class ProductController extends \yii\web\Controller
 {
+    public $layout = "layout_parent_nav";
+
     public function actionDetail()
     {
-        return $this->renderPartial('detail');
+        return $this->render('detail');
     }
 
     public function actionIndex()
     {
-        return $this->renderPartial('index');
+        return $this->render('index');
     }
 
 }
