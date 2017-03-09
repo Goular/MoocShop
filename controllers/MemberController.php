@@ -6,7 +6,8 @@ class MemberController extends \yii\web\Controller
 {
     public function actionAuth()
     {
-        return $this->renderPartial('auth');
+        $this->layout = "layout_parent_nav";
+        return $this->render('auth');
     }
 
     public function actionIndex()
