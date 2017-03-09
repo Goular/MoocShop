@@ -29,3 +29,24 @@
     1.控制器全局范围使用，即在当前类中添加覆盖属性layout的语句即可:public $layout = "layout_parent_none";
     2.局部使用:在action的范围内使用$layout = "layout_parent_nav"即可;
 </pre>
+
+### GII异机使用时，需要添加允许IP操作Gii的IP地址
+<pre>
+    $config['modules']['gii'] = [
+        'class' => 'yii\gii\Module',
+        // uncomment the following to add your IP if you are not connecting from localhost.
+        //'allowedIPs' => ['127.0.0.1', '::1'],
+    ];
+</pre>
+
+### 利用GII创建后台分组
+<pre>
+    使用generate Module即可，会生成一个文件夹放置到module中，访问形式index.php?r=admin/controller/action
+
+    模块默认的layout会选取父项目的view文件夹的layout中的main.php,所以需要自己覆盖view文件夹的内容
+
+    创建的时候 Modals Class填写:app/modules/admin
+    ModuleID我们写:admin 即可
+
+    （重点）默认内容，view中除了错误页面(view/site/error)会被继承，父文件夹的view的内容都不可以被子view文件夹调用
+</pre>
