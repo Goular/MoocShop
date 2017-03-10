@@ -82,3 +82,9 @@
             'defaultRoute'=>'index'
         ];
 </pre>
+
+### 添加平台(admin)后资源文件如何读取和访问
+<pre>
+    总的来说，还是放到/web/assets中，但是我们的要专门为admin在assets文件中添加admin文件夹，再去放置js/css/jq等文件
+    这样能达到分模块的思想
+</pre>
