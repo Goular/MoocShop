@@ -1,2 +1,11 @@
 *
 !.gitignore
+!js/*
+!images/*
+!less/*
+!admin/*
+!/js
+!/css
+!/images
+!/less
+!/admin
