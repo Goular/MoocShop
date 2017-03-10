@@ -81,6 +81,9 @@
             ],
             'defaultRoute'=>'index'
         ];
+
+    gii创建页面:
+    （注意）View Path: 可以使用相对路径，不然在这里写的内容，都会生成到根目录下的web目录
 </pre>
 
 ### 添加平台(admin)后资源文件如何读取和访问
@@ -109,4 +112,27 @@
 
     (重点)目前这种写法仅仅只能保证二级目录的内容不被忽略，三级目录及更多还是会被忽略的，所以我们只能继续添加不要不略三级目录的需求，毕竟无用的代码多，有用的代码少，
     所以这样做没什么关系了,写多点.gitIgnore规则而已，最好还是看我自己写的放置到web/asset的.gitIgnore文件的写法还好
+</pre>
+
+### 获取模块名/控制器名/方法名
+<pre>
+    Yii2 获取模块名、控制器名、方法名
+    在视图中：
+        模块名  $this->context->module->id
+        控制器名 $this->context->id
+        方法名 $this->context->action->id
+
+    在控制器中
+         模块名   Yii::$app->controller->module->id; //这个实测过，好像无效
+         控制器名   Yii::$app->controller->id
+         方法名  Yii::$app->controller->action->id;
+    或
+        模块名 $this->module->id;  //这个实测过，有效！
+        控制器名 $this->id;
+         方法名  $this->action->id;
+
+    在控制器的 beforeAction 方法中（方法接收$action参数）
+        模块名  $action->controller->module->id;
+        控制器名 $action->controller->id;
+        方法名  $action->id;
 </pre>
