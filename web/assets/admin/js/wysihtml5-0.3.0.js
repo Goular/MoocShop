@@ -2716,7 +2716,7 @@ rangy.createModule("DomUtil", function(api, module) {
         try {
             newControlRange.add(rangeElement);
         } catch (ex) {
-            throw new Error("addRange(): Element within the specified Range could not be added to control selection (does it have layout?)");
+            throw new Error("addRange(): Element within the specified Range could not be added to control selection (does it have layouts?)");
         }
         newControlRange.select();
 
@@ -2793,7 +2793,7 @@ rangy.createModule("DomUtil", function(api, module) {
             try {
                 controlRange.add(el);
             } catch (ex) {
-                throw new Error("setRanges(): Element within the one of the specified Ranges could not be added to control selection (does it have layout?)");
+                throw new Error("setRanges(): Element within the one of the specified Ranges could not be added to control selection (does it have layouts?)");
             }
         }
         controlRange.select();
@@ -4844,7 +4844,7 @@ wysihtml5.dom.parse = (function() {
     /**
      * Repair node
      * IE is a bit bitchy when it comes to invalid nested markup which includes unclosed tags
-     * A <p> doesn't need to be closed according HTML4-5 spec, we simply replace it with a <div> to preserve its content and layout
+     * A <p> doesn't need to be closed according HTML4-5 spec, we simply replace it with a <div> to preserve its content and layouts
      */
     if ("outerHTML" in oldNode) {
       if (!wysihtml5.browser.autoClosesUnclosedTags() &&

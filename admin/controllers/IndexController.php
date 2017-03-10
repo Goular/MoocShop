@@ -11,7 +11,7 @@ class IndexController extends Controller
 
     public function actionIndex()
     {
-        //$this->layout = 'layout_parent_none';
-        return $this->renderPartial('index');
+        //$this->layouts = 'layout_parent_none';
+        return $this->render('index');
     }
 }
