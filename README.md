@@ -136,3 +136,8 @@
         控制器名 $action->controller->id;
         方法名  $action->id;
 </pre>
+
+### 默认控制器的创建
+<pre>
+    在web.php中添加defaultRoute属性即可达到默认控制器的变更
+</pre>
