@@ -141,3 +141,26 @@
 <pre>
     在web.php中添加defaultRoute属性即可达到默认控制器的变更
 </pre>
+
+### 在活动记录类中添加不是数据库字段的属性
+<pre>
+    在登录页中，存在一个"记住我"的选项，但是并没有在数据表中保存，此时我们应该添加属性，让activeform访问的到就可以了，不会影响写入数据库
+</pre>
+
+### ActiveForm
+<pre>
+    使用的是yii/bootstrap/ActiveForm,而不是yii/widget/form
+
+    默认直接使用textInput()的方法，会产生一个label包裹，但是我们可以在全局文件
+    ActiveForm::begin([
+                    "fieldConfig"=>[
+                        "template"=>"{error}{input}"//这里可以控制，不输出默认的label标签内容，这样是让每一个可以使用默认的模板样式
+                    ]
+                ]);
+</pre>
+
+### HTML工具类
+<pre>
+    任何一个 web 应用程序会生成很多 HTMl 超文本标记。如果超文本标记是静态的， 那么将 PHP 和 HTML 混合在一个文件里 这种做法是非常高效的。但是，如果这些超文本标记是动态生成的，那么如果没有额外的辅助工具，这个过程将会变得复杂。 Yii 通过 HTML 帮助类来提供生成超文本标记的方法。这个帮助类包含有一系列的用于处理通用的 HTML 标签和其属性以及内容的静态方法。
+    HTML::encode()
+</pre>

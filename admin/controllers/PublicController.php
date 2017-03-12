@@ -2,6 +2,8 @@
 
 namespace app\admin\controllers;
 
+use app\admin\models\Admin;
+
 class PublicController extends \yii\web\Controller
 {
     public $layout = false;//不使用模板
@@ -9,7 +11,8 @@ class PublicController extends \yii\web\Controller
 
     public function actionLogin()
     {
-        return $this->render('login');
+        $model = new Admin();
+        return $this->render('login',['model'=>$model]);
     }
 
     public function actionSeekpassword()
