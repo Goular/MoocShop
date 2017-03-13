@@ -164,3 +164,70 @@
     任何一个 web 应用程序会生成很多 HTMl 超文本标记。如果超文本标记是静态的， 那么将 PHP 和 HTML 混合在一个文件里 这种做法是非常高效的。但是，如果这些超文本标记是动态生成的，那么如果没有额外的辅助工具，这个过程将会变得复杂。 Yii 通过 HTML 帮助类来提供生成超文本标记的方法。这个帮助类包含有一系列的用于处理通用的 HTML 标签和其属性以及内容的静态方法。
     HTML::encode()
 </pre>
+
+### 判断是否是POST方法的请求(一般用于是否是表单的提交)
+<pre>
+    yii::$app->request->isPost;
+</pre>
+
+### 将IP转为Long，将Long转为IP地址的方法
+<pre>
+    PHP方法：
+        ip2Long();
+        long2Ip();
+</pre>
+
+### 帮助类 Url
+<pre>
+    能够动态的读取当前的地址，防止因地址写死，在配置路由重写的时候会报错的问题。
+</pre>
+
+### Yii中的die()/exit()方法
+<pre>
+    Yii::app()->end();
+</pre>
+
+### ActiveRecord的rules()，能作为校验的方法，校验的内容，可以使方法，可以使标识，即"require"等
+<pre>
+    public function rules()
+    {
+        //不用gii默认生成的规则，我们自己写规则，来处理post表单的数据是否出现问题,例如对比密码等
+        //validatePass为方法名
+        return [
+            [
+               ['adminuser','required','message'=>"管理员账号不能为空"],
+               ['adminpass','required','message'=>"管理员密码不能为空"],
+               ['rememberMe','boolean'],
+               ['adminpass','validatePass'] //这个是方法的名称
+            ]
+        ];
+    }
+
+    public function validatePass(){
+        //在其他器情况并没有出现异常的情况下，才去执行下面的一步
+        if(!$this->hasErrors()){
+            $data = self::find()->where("adminuser= :user and adminpass= :pass",[":user"=>$this->adminuser,":pass"=>md5($this->adminpass)])->one();
+            if(is_null($data)){
+                $this->addError("adminpass","用户名或密码错误");
+            }
+        }
+    }
+</pre>
+
+### 为模型添加数据并进行校验
+<pre>
+    注意一点，就是$model->load($data)方法并不会自动执行校验的方法，此时我们可以这样写，一般都会这样去写的，在登录的页面中,
+    if ($this->load($data) && $this->validate()) {}
+</pre>
+
+### 在Controller中进行转跳，并结束后面的代码操作
+<pre>
+    $this->redirect(['index/index']);
+    \Yii::$app->end();
+</pre>
+
+### session_set_cookie_params
+<pre>
+    为sessionID创建cookie属性内容，这些会在各自的浏览器上去呈现出来
+</pre>
+
