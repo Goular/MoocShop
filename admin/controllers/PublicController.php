@@ -32,4 +32,14 @@ class PublicController extends \yii\web\Controller
         return $this->render('seekpassword');
     }
 
+    public function actionLogout(){
+        \Yii::$app->session->removeAll();//清空所有的session，但是我们不能进行
+        if(!isset(\Yii::$app->session['admin']['isLogin'])){
+            $this->redirect(['public/login']);
+            \Yii::$app->end();
+        }
+        //gohome 回主页
+        //goback 返回上一页
+        $this->goBack();
+    }
 }
