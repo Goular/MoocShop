@@ -27,20 +27,6 @@ class PublicController extends \yii\web\Controller
         return $this->render('login',['model'=>$model]);
     }
 
-    public function actionSeekpassword()
-    {
-        $model = new Admin();
-        //判断是否是post请求
-        if(\Yii::$app->request->isPost){
-            $post = \Yii::$app->request->post();
-            if($model->seekPass($post)){
-                //这里是执行好模型的搜索密码后的调用
-                echo "122222";
-            }
-        }
-        return $this->render('seekpassword',["model"=>$model]);
-    }
-
     /**
      * @throws \yii\base\ExitException
      * 登出操作
@@ -56,5 +42,18 @@ class PublicController extends \yii\web\Controller
         //gohome 回主页
         //goback 返回上一页
         $this->goBack();
+    }
+
+    public function actionSeekpassword()
+    {
+        $model = new Admin();
+        //判断是否是post请求
+        if(\Yii::$app->request->isPost){
+            $post = \Yii::$app->request->post();
+            if($model->seekPass($post)){
+                \Yii::$app->session->setFlash('info','电子邮件已经成功发送，请查收!');
+            }
+        }
+        return $this->render('seekpassword',["model"=>$model]);
     }
 }

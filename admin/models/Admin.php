@@ -36,14 +36,14 @@ class Admin extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            ['adminuser', 'required', 'message' => '管理员账号不能为空','on'=>['login','seekpass']],
-            ['adminpass', 'required', 'message' => '管理员密码不能为空','on'=>['login']],
-            ['rememberMe', 'boolean','on'=>['login']],
-            ['adminpass', 'validatePass','on'=>['login']],
-            ['adminemail','required','message'=>'电子邮箱不能为空','on'=>'seekpass'],
-            ['adminemail','email','message'=>'电子邮箱格式不正确','on'=>'seekpass'],
-            ['adminuser','unique','message'=>'管理员已被注册','on'=>''],
-            ['adminemail','validateEmail','on'=>'seekpass'],
+            ['adminuser', 'required', 'message' => '管理员账号不能为空', 'on' => ['login', 'seekpass']],
+            ['adminpass', 'required', 'message' => '管理员密码不能为空', 'on' => ['login']],
+            ['rememberMe', 'boolean', 'on' => ['login']],
+            ['adminpass', 'validatePass', 'on' => ['login']],
+            ['adminemail', 'required', 'message' => '电子邮箱不能为空', 'on' => 'seekpass'],
+            ['adminemail', 'email', 'message' => '电子邮箱格式不正确', 'on' => 'seekpass'],
+            ['adminuser', 'unique', 'message' => '管理员已被注册', 'on' => ''],
+            ['adminemail', 'validateEmail', 'on' => 'seekpass'],
         ];
     }
 
@@ -61,7 +61,8 @@ class Admin extends \yii\db\ActiveRecord
         }
     }
 
-    public function validateEmail(){
+    public function validateEmail()
+    {
         //在其他器情况并没有出现异常的情况下，才去执行下面的一步
         if (!$this->hasErrors()) {
             $data = self::find()->where("adminuser= :user and adminemail= :email", [":user" => $this->adminuser, ":email" => $this->adminemail])->one();
@@ -114,16 +115,38 @@ class Admin extends \yii\db\ActiveRecord
 
     /**
      * @param $data
-     * 搜索密码
+     *  搜索密码
      */
-    public function seekPass($data){
+    public function seekPass($data)
+    {
         //由于Rules方法的关系，我们需要为方法设置场景(因为这里有执行validate()方法)
         $this->scenario = "seekpass";
-        if($this->load($data)&&$this->validate()){
-            //做有意义的事情
-            return true;
+        if ($this->load($data) && $this->validate()) {
+            //这里执行发送邮件的操作
+            $time = time();
+            $token = $this->createToken($data['Admin']['adminuser'], $time);
+            $mailer = Yii::$app->mailer->compose();
+            //邮件来源
+            $mailer->setFrom(Yii::$app->params['adminEmail']);//获取全局文件\confing\params.php中的参数内容
+            //邮件收件人
+            $mailer->setTo($data['Admin']['adminemail']);
+            //邮件主题
+            $mailer->setSubject("Goular社区--找回密码");
+            if($mailer->send()){
+                return true;
+            }
         }
         return false;
+    }
+
+    /**
+     * 创建用于校验的token
+     */
+    public function createToken($adminuser, $time)
+    {
+        //base64_encode() returns 使用 base64 对 data 进行编码。设计此种编码是为了使二进制数据可以通过非纯 8-bit 的传输层传输，例如电子邮件的主体。
+        //本函数将字符串以 MIME BASE64 编码。此编码方式可以让中文字或者图片也能在网络上顺利传输
+        return md5(md5($adminuser) . base64_encode(Yii::$app->request->userIP) . md5($time));
     }
 
 }

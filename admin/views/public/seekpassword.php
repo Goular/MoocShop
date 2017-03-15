@@ -39,6 +39,9 @@ use \yii\helpers\Html;
     <div class="span4 box">
         <div class="content-wrap">
             <h6>慕课商城 - 找回密码</h6>
+            <?php if(Yii::$app->session->hasFlash('info')){
+                echo Yii::$app->session->getFlash('info');
+            }?>
             <?php echo $form->field($model,'adminuser')->textInput(['class'=>'span12',"placeholder"=>"管理员账号"]);?>
             <?php echo $form->field($model,'adminemail')->textInput(['class'=>"span12","placeholder"=>'管理员电子邮箱'])?>
             <a href="<?php echo \yii\helpers\Url::to(['public/login'])?>" class="forgot">返回登录</a>

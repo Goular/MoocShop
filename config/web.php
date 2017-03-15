@@ -26,7 +26,16 @@ $config = [
             // send all mails to a file by default. You have to set
             // 'useFileTransport' to false and configure a transport
             // for the mailer to send real emails.
-            'useFileTransport' => true,
+            'useFileTransport' => false,
+            'transport' => [
+                'class' => 'Swift_SmtpTransport',
+                'host' => 'smtp.126.com',
+                'username' => 'zhaojt_wechat@126.com',
+                'password' => 'zhao307161',
+                'port' => '465',
+                'encryption' => 'ssl',
+            ]
+            //password不是网易邮箱密码，而是网易邮箱的客户端授权密码，请注意，但是我们自建邮件服务器不会出现这样的问题
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,

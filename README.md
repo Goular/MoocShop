@@ -239,3 +239,78 @@
      就会出现每一次都会报错，因为不是每次提交表单的数量都是全部表单，所以需要分场景，按场景来确定点钱rules()方法，
      执行当次方法是需要校验多少种变量，还是全部变量，所以这个是需要通过场景来控制的。
 </pre>
+
+### 使用自带的Mailer发送邮件
+<pre>
+    配置文件:/config/web.config
+    //这是我配置需要配置的效果
+    'mailer' => [
+                'class' => 'yii\swiftmailer\Mailer',
+                // send all mails to a file by default. You have to set
+                // 'useFileTransport' to false and configure a transport
+                // for the mailer to send real emails.
+                'useFileTransport' => false, //记住这个位置需要设置为false，下面的transposrt才能执行
+                'transport' => [
+                    'class' => 'Swift_SmtpTransport',
+                    'host' => 'smtp.163.com',
+                    'username' => 'imooc_shop@163.com',
+                    'password' => 'imooc123',
+                    'port' => '465',
+                    'encryption' => 'ssl',
+                ],
+
+    ]
+
+    在vendor文件夹中Mailer类中，在类的前面有教程使用:
+     * Mailer implements a mailer based on SwiftMailer.
+     *
+     * To use Mailer, you should configure it in the application configuration like the following,
+     *
+     * ~~~
+     * 'components' => [
+     *     ...
+     *     'mailer' => [
+     *         'class' => 'yii\swiftmailer\Mailer',
+     *         'transport' => [
+     *             'class' => 'Swift_SmtpTransport',
+     *             'host' => 'localhost',
+     *             'username' => 'username',
+     *             'password' => 'password',
+     *             'port' => '587',
+     *             'encryption' => 'tls',
+     *         ],
+     *     ],
+     *     ...
+     * ],
+
+
+    发送邮件的教程:
+     * To send an email, you may use the following code:
+     *
+     * ~~~
+     * Yii::$app->mailer->compose('contact/html', ['contactForm' => $form])
+     *     ->setFrom('from@domain.com')
+     *     ->setTo($form->email)
+     *     ->setSubject($form->subject)
+     *     ->send();
+     * ~~~
+</pre>
+
+### 设置全局的参数(电子邮箱，key等配置内容)
+<pre>
+    配置在@app/config/params.php里，读取方式为Yii::$app->params['paramsName']。
+    比如Yii::$app->params['sitename']
+</pre>
+
+### Flash 数据(Session下只有一次使用寿命的数据)
+<pre>
+    设置好之后，会藏在model中，在view中使用getFlash()方法即可
+    Flash数据是一种特别的session数据，它一旦在某个请求中设置后， 只会在下次请求中有效，然后该数据就会自动被删除。 常用于实现只需显示给终端用户一次的信息， 如用户提交一个表单后显示确认信息。
+
+    可通过session应用组件设置或访问session
+
+    \Yii::$app->session->setFlash('info','电子邮件已经成功发送，请查收!');
+    Yii::$app->session->hasFlash('info')
+    Yii::$app->session->getFlash('info')
+
+</pre>
