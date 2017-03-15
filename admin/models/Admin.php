@@ -19,6 +19,8 @@ class Admin extends \yii\db\ActiveRecord
 {
     //登录页-记住我的选项
     public $rememberMe = true;
+    //重复填写密码需要的属性
+    public $repass; //为什么需要这种写法，因为这是在数据表里面没有，但是他需要在界面上显示，所以以这种写法来处理
 
     /**
      * @inheritdoc
@@ -36,14 +38,17 @@ class Admin extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            ['adminuser', 'required', 'message' => '管理员账号不能为空', 'on' => ['login', 'seekpass']],
-            ['adminpass', 'required', 'message' => '管理员密码不能为空', 'on' => ['login']],
-            ['rememberMe', 'boolean', 'on' => ['login']],
-            ['adminpass', 'validatePass', 'on' => ['login']],
-            ['adminemail', 'required', 'message' => '电子邮箱不能为空', 'on' => 'seekpass'],
-            ['adminemail', 'email', 'message' => '电子邮箱格式不正确', 'on' => 'seekpass'],
-            ['adminuser', 'unique', 'message' => '管理员已被注册', 'on' => ''],
+            ['adminuser', 'required', 'message' => '管理员账号不能为空', 'on' => ['login', 'seekpass', 'changepass', 'adminadd', 'changeemail']],
+            ['adminpass', 'required', 'message' => '管理员密码不能为空', 'on' => ['login', 'changepass', 'adminadd', 'changeemail']],
+            ['rememberMe', 'boolean', 'on' => 'login'],
+            ['adminpass', 'validatePass', 'on' => ['login', 'changeemail']],
+            ['adminemail', 'required', 'message' => '电子邮箱不能为空', 'on' => ['seekpass', 'adminadd', 'changeemail']],
+            ['adminemail', 'email', 'message' => '电子邮箱格式不正确', 'on' => ['seekpass', 'adminadd', 'changeemail']],
+            ['adminemail', 'unique', 'message' => '电子邮箱已被注册', 'on' => ['adminadd', 'changeemail']],
+            ['adminuser', 'unique', 'message' => '管理员已被注册', 'on' => 'adminadd'],
             ['adminemail', 'validateEmail', 'on' => 'seekpass'],
+            ['repass', 'required', 'message' => '确认密码不能为空', 'on' => ['changepass', 'adminadd']],
+            ['repass', 'compare', 'compareAttribute' => 'adminpass', 'message' => '两次密码输入不一致', 'on' => ['changepass', 'adminadd']]
         ];
     }
 
@@ -125,14 +130,14 @@ class Admin extends \yii\db\ActiveRecord
             //这里执行发送邮件的操作
             $time = time();
             $token = $this->createToken($data['Admin']['adminuser'], $time);
-            $mailer = Yii::$app->mailer->compose('seekpass',['adminuser'=>$data['Admin']['adminuser'],'time'=>$time,'token'=>$token]);
+            $mailer = Yii::$app->mailer->compose('seekpass', ['adminuser' => $data['Admin']['adminuser'], 'time' => $time, 'token' => $token]);
             //邮件来源
             $mailer->setFrom(Yii::$app->params['adminEmail']);//获取全局文件\confing\params.php中的参数内容
             //邮件收件人
             $mailer->setTo($data['Admin']['adminemail']);
             //邮件主题
             $mailer->setSubject("Goular社区--找回密码");
-            if($mailer->send()){
+            if ($mailer->send()) {
                 return true;
             }
         }
@@ -148,6 +153,15 @@ class Admin extends \yii\db\ActiveRecord
         //base64_encode() returns 使用 base64 对 data 进行编码。设计此种编码是为了使二进制数据可以通过非纯 8-bit 的传输层传输，例如电子邮件的主体。
         //本函数将字符串以 MIME BASE64 编码。此编码方式可以让中文字或者图片也能在网络上顺利传输
         return md5(md5($adminuser) . base64_encode(Yii::$app->request->userIP) . md5($time));
+    }
+
+    public function changePass($data)
+    {
+        $this->scenario = 'changepass';
+        if($this->load($data)&&$this->validate()){
+            return (bool)$this->updateAll(['adminpass'=>md5($this->adminpass)],'adminuser=:user',[':user'=>$this->adminuser]);
+        }
+        return false;
     }
 
 }
