@@ -125,7 +125,7 @@ class Admin extends \yii\db\ActiveRecord
             //这里执行发送邮件的操作
             $time = time();
             $token = $this->createToken($data['Admin']['adminuser'], $time);
-            $mailer = Yii::$app->mailer->compose();
+            $mailer = Yii::$app->mailer->compose('seekpass',['adminuser'=>$data['Admin']['adminuser'],'time'=>$time,'token'=>$token]);
             //邮件来源
             $mailer->setFrom(Yii::$app->params['adminEmail']);//获取全局文件\confing\params.php中的参数内容
             //邮件收件人
@@ -141,6 +141,7 @@ class Admin extends \yii\db\ActiveRecord
 
     /**
      * 创建用于校验的token
+     * 创建规则:md5(用户名的md5+ip地址的base64+时间的MD5)
      */
     public function createToken($adminuser, $time)
     {

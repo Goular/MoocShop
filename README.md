@@ -296,6 +296,20 @@
      * ~~~
 </pre>
 
+### 邮件模板(文件夹为@app/mail),即根目录的mail文件夹
+<pre>
+    为了通过视图文件撰写正文可传递视图名称到 compose() 方法中：
+
+    home-link的访问路径为:@app/mail/home-link
+    会自动加载模板
+
+    Yii::$app->mailer->compose('home-link') // 渲染一个视图作为邮件内容
+        ->setFrom('from@domain.com')
+        ->setTo('to@domain.com')
+        ->setSubject('Message subject')
+        ->send();
+</pre>
+
 ### 设置全局的参数(电子邮箱，key等配置内容)
 <pre>
     配置在@app/config/params.php里，读取方式为Yii::$app->params['paramsName']。
@@ -312,5 +326,5 @@
     \Yii::$app->session->setFlash('info','电子邮件已经成功发送，请查收!');
     Yii::$app->session->hasFlash('info')
     Yii::$app->session->getFlash('info')
-
 </pre>
+
