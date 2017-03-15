@@ -46,7 +46,7 @@ use yii\helpers\Html;
                 <?php echo $form->field($model,'adminuser')->textInput(["class"=>"span12","placeholder"=>"管理员账号"]);?>
                 <?php echo $form->field($model,'adminpass')->passwordInput(["class"=>"span12","placeholder"=>"管理员密码"]);?>
 
-                <a href="/index.php?r=admin%2Fpublic%2Fseekpassword" class="forgot">忘记密码?</a>
+                <a href="<?php echo yii\helpers\Url::to(["public/seekpassword"])?>" class="forgot">忘记密码?</a>
 
                 <?php echo $form->field($model,"rememberMe")->checkbox([
                     "id"=>"remember-me",

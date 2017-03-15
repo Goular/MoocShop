@@ -29,11 +29,26 @@ class PublicController extends \yii\web\Controller
 
     public function actionSeekpassword()
     {
-        return $this->render('seekpassword');
+        $model = new Admin();
+        //判断是否是post请求
+        if(\Yii::$app->request->isPost){
+            $post = \Yii::$app->request->post();
+            if($model->seekPass($post)){
+                //这里是执行好模型的搜索密码后的调用
+
+            }
+        }
+        return $this->render('seekpassword',["model"=>$model]);
     }
 
+    /**
+     * @throws \yii\base\ExitException
+     * 登出操作
+     */
     public function actionLogout(){
-        \Yii::$app->session->removeAll();//清空所有的session，但是我们不能进行
+        //移除当前所有的session
+        \Yii::$app->session->removeAll();
+        //如果找不到session数组的内容，转跳到登录页，同时使用end()方法停止后面后续代码的执行
         if(!isset(\Yii::$app->session['admin']['isLogin'])){
             $this->redirect(['public/login']);
             \Yii::$app->end();
