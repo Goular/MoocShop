@@ -36,10 +36,14 @@ class Admin extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            ['adminuser', 'required', 'message' => '管理员账号不能为空'],
-            ['adminpass', 'required', 'message' => '管理员密码不能为空'],
-            ['rememberMe', 'boolean'],
-            ['adminpass', 'validatePass']
+            ['adminuser', 'required', 'message' => '管理员账号不能为空','on'=>['login','seekpass']],
+            ['adminpass', 'required', 'message' => '管理员密码不能为空','on'=>['login']],
+            ['rememberMe', 'boolean','on'=>['login']],
+            ['adminpass', 'validatePass','on'=>['login']],
+            ['adminemail','required','message'=>'电子邮箱不能为空','on'=>'seekpass'],
+            ['adminemail','email','message'=>'电子邮箱格式不正确','on'=>'seekpass'],
+            ['adminuser','unique','message'=>'管理员已被注册','on'=>''],
+            ['adminemail','validateEmail','on'=>'seekpass'],
         ];
     }
 
@@ -53,6 +57,16 @@ class Admin extends \yii\db\ActiveRecord
             $data = self::find()->where("adminuser= :user and adminpass= :pass", [":user" => $this->adminuser, ":pass" => md5($this->adminpass)])->one();
             if (is_null($data)) {
                 $this->addError("adminpass", "用户名或密码错误");
+            }
+        }
+    }
+
+    public function validateEmail(){
+        //在其他器情况并没有出现异常的情况下，才去执行下面的一步
+        if (!$this->hasErrors()) {
+            $data = self::find()->where("adminuser= :user and adminemail= :email", [":user" => $this->adminuser, ":email" => $this->adminemail])->one();
+            if (is_null($data)) {
+                $this->addError("adminemail", "管理员电子邮箱不匹配");
             }
         }
     }
@@ -75,9 +89,13 @@ class Admin extends \yii\db\ActiveRecord
 
     /**
      * @param $data 为Yii::$app->reuqest->post()返回的对象
+     * 登录
      */
     public function login($data)
     {
+        //由于Rules方法的关系，我们需要为方法设置场景(因为这里有执行validate()方法)
+        $this->scenario = "login";
+
         if ($this->load($data) && $this->validate()) {
             //数据能成功过关后，我们在此做有意义的操作
             $liftTime = $this->rememberMe ? 24 * 3600 : 0;//判断时候选中"记住我"，是的话，就将sessionID设定有效的时长
@@ -93,4 +111,19 @@ class Admin extends \yii\db\ActiveRecord
         }
         return false;
     }
+
+    /**
+     * @param $data
+     * 搜索密码
+     */
+    public function seekPass($data){
+        //由于Rules方法的关系，我们需要为方法设置场景(因为这里有执行validate()方法)
+        $this->scenario = "seekpass";
+        if($this->load($data)&&$this->validate()){
+            //做有意义的事情
+            return true;
+        }
+        return false;
+    }
+
 }

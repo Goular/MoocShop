@@ -35,7 +35,7 @@ class PublicController extends \yii\web\Controller
             $post = \Yii::$app->request->post();
             if($model->seekPass($post)){
                 //这里是执行好模型的搜索密码后的调用
-
+                echo "122222";
             }
         }
         return $this->render('seekpassword',["model"=>$model]);
