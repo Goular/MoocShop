@@ -140,7 +140,7 @@ use yii\helpers\Url;
                 <ul class="dropdown-menu">
                     <li><a href="<?php echo Url::to(['manage/changeemail']);?>">个人信息管理</a></li>
                     <li><a href="<?php echo Url::to(['manage/changepass']);?>">修改密码</a></li>
-                    <li><a href="#">订单管理</a></li>
+                    <li><a href="<?php echo Url::to(['order/list']);?>">订单管理</a></li>
                 </ul>
             </li>
             <li class="settings hidden-phone">

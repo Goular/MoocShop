@@ -59,4 +59,8 @@ class ManageController extends Controller
     public function actionManagers(){
         return $this->render("managers");
     }
+
+    public function actionChangeemail(){
+        return $this->render("changeemail");
+    }
 }
