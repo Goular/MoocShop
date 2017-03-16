@@ -63,4 +63,8 @@ class ManageController extends Controller
     public function actionChangeemail(){
         return $this->render("changeemail");
     }
+
+    public function actionChangepass(){
+        return $this->render("changepass");
+    }
 }
