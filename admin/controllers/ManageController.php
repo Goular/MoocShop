@@ -19,9 +19,10 @@ use yii\web\Controller;
 class ManageController extends Controller
 {
     //设置默认不需要模板
-    public $layout = false;
+    public $layout = "admin_main";
 
     public function actionMailchangepass(){
+        $this->layout = false;
         //获取时间戳
         $time = \Yii::$app->request->get("timestamp");
         //获取用户名
@@ -56,7 +57,6 @@ class ManageController extends Controller
     }
 
     public function actionManagers(){
-        $this->layout = "admin_main";
         return $this->render("managers");
     }
 }
