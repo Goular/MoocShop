@@ -4,6 +4,8 @@ namespace app\admin\controllers;
 
 class CategoryController extends \yii\web\Controller
 {
+    public $layout = "admin_main";
+
     public function actionAdd()
     {
         return $this->render('add');
@@ -14,9 +16,9 @@ class CategoryController extends \yii\web\Controller
         return $this->render('index');
     }
 
-    public function actionList()
+    public function actionCates()
     {
-        return $this->render('list');
+        return $this->render('cates');
     }
 
 }

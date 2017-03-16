@@ -201,7 +201,7 @@ use yii\helpers\Url;
                 <i class="icon-chevron-down"></i>
             </a>
             <ul class="submenu">
-                <li><a href="<?php echo Url::to(['category/list']);?>">分类列表</a></li>
+                <li><a href="<?php echo Url::to(['category/cates']);?>">分类列表</a></li>
                 <li><a href="<?php echo Url::to(['category/add']);?>">加入分类</a></li>
             </ul>
         </li>
@@ -212,7 +212,7 @@ use yii\helpers\Url;
                 <i class="icon-chevron-down"></i>
             </a>
             <ul class="submenu">
-                <li><a href="<?php echo Url::to(['product/list']);?>">商品列表</a></li>
+                <li><a href="<?php echo Url::to(['product/products']);?>">商品列表</a></li>
                 <li><a href="<?php echo Url::to(['product/add']);?>">添加商品</a></li>
             </ul>
         </li>
