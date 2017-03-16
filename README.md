@@ -328,3 +328,8 @@
     Yii::$app->session->getFlash('info')
 </pre>
 
+### UrlManager 和 Url的区别
+<pre>
+    Url创建的是相对路径
+    UrlManager创建的是绝对路径（发送到邮箱的地址需要绝对路径，所以才使用urlmanager）
+</pre>
