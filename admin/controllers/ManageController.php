@@ -50,4 +50,12 @@ class ManageController extends Controller
         $model->adminuser = $adminuser;
         return $this->render("mailchangepass",['model'=>$model]);
     }
+
+    public function actionReg(){
+        return $this->render("reg");
+    }
+
+    public function actionManagers(){
+        return $this->render("managers");
+    }
 }
