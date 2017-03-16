@@ -56,6 +56,7 @@ class ManageController extends Controller
     }
 
     public function actionManagers(){
+        $this->layout = "admin_main";
         return $this->render("managers");
     }
 }
