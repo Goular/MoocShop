@@ -1,4 +1,6 @@
-
+<?php
+use yii\helpers\Url;
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -136,8 +138,8 @@
                     <b class="caret"></b>
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a href="/index.php?r=admin%2Fmanage%2Fchangeemail">个人信息管理</a></li>
-                    <li><a href="/index.php?r=admin%2Fmanage%2Fchangepass">修改密码</a></li>
+                    <li><a href="<?php echo Url::to(['manage/changeemail']);?>">个人信息管理</a></li>
+                    <li><a href="<?php echo Url::to(['manage/changepass']);?>">修改密码</a></li>
                     <li><a href="#">订单管理</a></li>
                 </ul>
             </li>
@@ -164,7 +166,7 @@
                 <div class="arrow"></div>
                 <div class="arrow_border"></div>
             </div>
-            <a href="index.html">
+            <a href="<?php echo Url::to(['index/index']);?>">
                 <i class="icon-home"></i>
                 <span>后台首页</span>
             </a>
@@ -176,8 +178,8 @@
                 <i class="icon-chevron-down"></i>
             </a>
             <ul class="submenu">
-                <li><a href="/index.php?r=admin%2Fmanage%2Fmanagers">管理员列表</a></li>
-                <li><a href="/index.php?r=admin%2Fmanage%2Freg">加入新管理员</a></li>
+                <li><a href="<?php echo Url::to(['manage/managers']);?>">管理员列表</a></li>
+                <li><a href="<?php echo Url::to(['manage/reg']);?>">加入新管理员</a></li>
             </ul>
         </li>
 
@@ -188,8 +190,8 @@
                 <i class="icon-chevron-down"></i>
             </a>
             <ul class="submenu">
-                <li><a href="/index.php?r=admin%2Fuser%2Fusers">用户列表</a></li>
-                <li><a href="/index.php?r=admin%2Fuser%2Freg">加入新用户</a></li>
+                <li><a href="<?php echo Url::to(['user/users']);?>">用户列表</a></li>
+                <li><a href="<?php echo Url::to(['user/reg']);?>">加入新用户</a></li>
             </ul>
         </li>
         <li>
@@ -199,8 +201,8 @@
                 <i class="icon-chevron-down"></i>
             </a>
             <ul class="submenu">
-                <li><a href="/index.php?r=admin%2Fcategory%2Flist">分类列表</a></li>
-                <li><a href="/index.php?r=admin%2Fcategory%2Fadd">加入分类</a></li>
+                <li><a href="<?php echo Url::to(['category/list']);?>">分类列表</a></li>
+                <li><a href="<?php echo Url::to(['category/add']);?>">加入分类</a></li>
             </ul>
         </li>
         <li>
@@ -210,8 +212,8 @@
                 <i class="icon-chevron-down"></i>
             </a>
             <ul class="submenu">
-                <li><a href="/index.php?r=admin%2Fproduct%2Flist">商品列表</a></li>
-                <li><a href="/index.php?r=admin%2Fproduct%2Fadd">添加商品</a></li>
+                <li><a href="<?php echo Url::to(['product/list']);?>">商品列表</a></li>
+                <li><a href="<?php echo Url::to(['product/add']);?>">添加商品</a></li>
             </ul>
         </li>
         <li>
@@ -221,7 +223,7 @@
                 <i class="icon-chevron-down"></i>
             </a>
             <ul class="submenu">
-                <li><a href="/index.php?r=admin%2Forder%2Flist">订单列表</a></li>
+                <li><a href="<?php echo Url::to(['order/list']);?>">订单列表</a></li>
             </ul>
         </li>
 
