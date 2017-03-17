@@ -112,7 +112,7 @@ class Admin extends \yii\db\ActiveRecord
                 "adminuser" => $this->adminuser,
                 "isLogin" => 1
             ];
-            $this->updateAll(['logintime' => time(), 'loginip' => ip2long(Yii::$app->request->userIP)], 'adminuser= :user', [':user' => $this->adminuser]);
+            $this->updateAll(['logintime' => time(), 'loginip' => ip2long(\Yii::$app->request->userIP)], 'adminuser= :user', [':user' => $this->adminuser]);
             return (bool)$session['admin']['isLogin'];
         }
         return false;
