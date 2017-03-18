@@ -1,3 +1,7 @@
+<?php
+use yii\widgets\LinkPager;
+
+?>
 <!-- main container -->
 <div class="content">
     <div class="container-fluid">
@@ -36,21 +40,40 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <!-- row -->
-                    <tr>
-                        <td>1</td>
-                        <td>admin</td>
-                        <td>86267659@qq.com</td>
-                        <td>2016-06-29 08:50:04</td>
-                        <td>192.168.199.227</td>
-                        <td>2016-04-07 21:56:14</td>
-                        <td class="align-right">
-                            <a href="/index.php?r=admin%2Fmanage%2Fdel&adminid=1">删除</a></td>
-                    </tr>
+                    <?php foreach ($managers as $manager): ?>
+                        <!-- row -->
+                        <tr>
+                            <td><?php echo $manager->adminid; ?></td>
+                            <td><?php echo $manager->adminuser; ?></td>
+                            <td><?php echo $manager->adminemail; ?></td>
+                            <td><?php echo date("Y-m-d H:i:s", $manager->logintime) ?></td>
+                            <td><?php echo long2ip($manager->loginip); ?></td>
+                            <td><?php echo date("Y-m-d H:i:s", $manager->createtime); ?></td>
+                            <td class="align-right">
+                                <a href="<?php echo \yii\helpers\Url::to(['manage/del', 'adminid' => $manager->adminid]) ?>">删除</a>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
                     </tbody>
                 </table>
             </div>
-            <div class="pagination pull-right"></div>
+
+            <?php
+            //这个是用于添加成员操作的反馈，数据一次有效
+            if (Yii::$app->session->hasFlash('info')) {
+                echo Yii::$app->session->getFlash('info');
+            }
+            ?>
+
+            <div class="pagination pull-right">
+                <?php
+                    echo LinkPager::widget([
+                        'pagination' => $pager,
+                        'prevPageLabel'=>"&#8249;",
+                        'nextPageLabel'=>'&#8250;'
+                    ]);
+                ?>
+            </div>
             <!-- end users table --></div>
     </div>
 </div>

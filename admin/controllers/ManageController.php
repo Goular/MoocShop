@@ -9,6 +9,7 @@
 namespace app\admin\controllers;
 
 use app\admin\models\Admin;
+use yii\data\Pagination;
 use yii\web\Controller;
 
 /**
@@ -53,14 +54,21 @@ class ManageController extends Controller
         return $this->render("mailchangepass", ['model' => $model]);
     }
 
+    public function actionManagers()
+    {
+        //1.设置父模板（这里已经设置了）
+        //2.设置$model
+        $model = Admin::find();//这个仅仅汇创建一个活动记录而不会马上到数据库进行查询，只有遇到类似one(),all(),count()这样的方法，才回进行数据库的搜索
+        $count = $model->count();
+        $pageSize = \Yii::$app->params['pageSize']['manage'];
+        $pager = new Pagination(['totalCount'=>$count,'pageSize'=>$pageSize]);//获取分页对象
+        $managers = $model->offset($pager->offset)->limit($pager->limit)->all();
+        return $this->render("managers",["managers"=>$managers,"pager"=>$pager]);
+    }
+
     public function actionReg()
     {
         return $this->render("reg");
-    }
-
-    public function actionManagers()
-    {
-        return $this->render("managers");
     }
 
     public function actionChangeemail()
