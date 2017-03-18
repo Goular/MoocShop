@@ -397,3 +397,5 @@
             return $this->render("reg",['model'=>$model]);
         }
 </pre>
+
+### 不建议真的把数据删除，因为很容易造成关联数据的丢失。

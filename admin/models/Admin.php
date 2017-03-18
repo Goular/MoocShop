@@ -179,4 +179,15 @@ class Admin extends \yii\db\ActiveRecord
         }
         return false;
     }
+
+    /**
+     * 变更电子邮箱
+     */
+    public function changeEmail($data){
+        $this->scenario = "changeemail";
+        if($this->load($data) && $this->validate()){
+            return (bool)$this->updateAll(["adminemail"=>$this->adminemail],'adminuser=:user',[":user"=>$this->adminuser]);
+        }
+        return false;
+    }
 }
