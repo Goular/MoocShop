@@ -90,6 +90,7 @@ class Admin extends \yii\db\ActiveRecord
             'logintime' => '登录时间',
             'loginip' => '登录IP',
             'createtime' => '创建时间',
+            'repass' => '确认密码'
         ];
     }
 

@@ -1,3 +1,9 @@
+<?php
+use yii\bootstrap\ActiveForm;
+use yii\helpers\Url;
+use \yii\helpers\Html;
+
+?>
 <!-- main container -->
 <div class="content">
     <div class="container-fluid">
@@ -8,44 +14,28 @@
                 <!-- left column -->
                 <div class="span9 with-sidebar">
                     <div class="container">
-                        <form id="w0" class="new_user_form inline-input" action="/index.php?r=admin%2Fmanage%2Freg"
-                              method="post">
-                            <input type="hidden" name="_csrf"
-                                   value="My1Fc0FTZ2JBYyIVOWFKCAIVJCM5JRI3Qh0kPxQwLxRXahQKcyckEA==">
+                        <?php
+                        if (Yii::$app->session->hasFlash('info')) {
+                            echo Yii::$app->session->getFlash('info');
+                        }
 
-                            <div class="form-group field-admin-adminuser">
-                                <div class="span12 field-box">
-                                    <label class="control-label" for="admin-adminuser">管理员账号</label>
-                                    <input type="text" id="admin-adminuser" class="span9" name="Admin[adminuser]"></div>
-                                <p class="help-block help-block-error"></p>
-                            </div>
-                            <div class="form-group field-admin-adminemail">
-                                <div class="span12 field-box">
-                                    <label class="control-label" for="admin-adminemail">管理员邮箱</label>
-                                    <input type="text" id="admin-adminemail" class="span9" name="Admin[adminemail]">
-                                </div>
-                                <p class="help-block help-block-error"></p>
-                            </div>
-                            <div class="form-group field-admin-adminpass">
-                                <div class="span12 field-box">
-                                    <label class="control-label" for="admin-adminpass">管理员密码</label>
-                                    <input type="password" id="admin-adminpass" class="span9" name="Admin[adminpass]"
-                                           value=""></div>
-                                <p class="help-block help-block-error"></p>
-                            </div>
-                            <div class="form-group field-admin-repass">
-                                <div class="span12 field-box">
-                                    <label class="control-label" for="admin-repass">确认密码</label>
-                                    <input type="password" id="admin-repass" class="span9" name="Admin[repass]"
-                                           value=""></div>
-                                <p class="help-block help-block-error"></p>
-                            </div>
-                            <div class="span11 field-box actions">
-                                <button type="submit" class="btn-glow primary">创建</button>
-                                <span>或者</span>
-                                <button type="reset" class="reset">取消</button>
-                            </div>
-                        </form>
+                        $form = ActiveForm::begin([
+                            'options' => ['class' => 'new_user_form inline-input'],
+                            'fieldConfig' => [
+                                'template' => '<div class="span12 field-box">{label}{input}</div>{error}'
+                            ]
+                        ]);
+                        ?>
+                        <?php echo $form->field($model, 'adminuser')->textInput(['class' => 'span9']); ?>
+                        <?php echo $form->field($model, 'adminemail')->textInput(['class' => 'span9']); ?>
+                        <?php echo $form->field($model, 'adminpass')->passwordInput(['class' => 'span9']); ?>
+                        <?php echo $form->field($model, 'repass')->passwordInput(['class' => 'span9']); ?>
+                        <div class="span11 field-box actions">
+                            <?php echo Html::submitButton('创建', ['class' => 'btn-glow primary']); ?>
+                            <span>或者</span>
+                            <?php echo Html::resetButton('取消', ['class' => 'reset']); ?>
+                        </div>
+                        <?php ActiveForm::end(); ?>
                     </div>
                 </div>
                 <!-- side right column -->
