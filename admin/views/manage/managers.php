@@ -69,8 +69,10 @@ use yii\widgets\LinkPager;
                 <?php
                     echo LinkPager::widget([
                         'pagination' => $pager,
-                        'prevPageLabel'=>"&#8249;",
-                        'nextPageLabel'=>'&#8250;'
+                        'prevPageLabel'=>"&#139;",
+                        'nextPageLabel'=>'&#155;',
+                        'firstPageLabel'=>"&laquo;",
+                        'lastPageLabel'=>'&raquo;'
                     ]);
                 ?>
             </div>

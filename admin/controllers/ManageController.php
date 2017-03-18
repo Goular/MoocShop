@@ -80,7 +80,8 @@ class ManageController extends Controller
                 \Yii::$app->session->setFlash('info','添加失败!');
             }
         }
-
+        $model->adminpass = "";
+        $model->repass = "";
         return $this->render("reg",['model'=>$model]);
     }
 

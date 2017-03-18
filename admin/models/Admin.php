@@ -165,4 +165,18 @@ class Admin extends \yii\db\ActiveRecord
         return false;
     }
 
+    /**
+     * 创建管理员
+     */
+    public function reg($data){
+        $this->scenario = 'adminadd';
+        if($this->load($data) && $this->validate()){
+            $this->adminpass = md5($this->adminpass);
+            if($this->save(false)){//这个方法中的false为是否进行校验，因为之前为validate的内容
+                return true;
+            }
+            return false;
+        }
+        return false;
+    }
 }
