@@ -85,6 +85,19 @@ class ManageController extends Controller
         return $this->render("reg",['model'=>$model]);
     }
 
+    public function actionDel(){
+        $adminId = (int)\Yii::$app->request->get('adminid');//强转为整型
+        if(empty($adminId)||$adminId == 1){
+            $this->redirect(['manage/managers']);
+            return false;
+        }
+        $model = new Admin();
+        if($model->deleteAll('adminid=:id',[':id'=>$adminId])){
+            \Yii::$app->session->setFlash('info','删除成功!');
+            $this->redirect(['manage/managers']);
+        }
+    }
+
     public function actionChangeemail()
     {
         return $this->render("changeemail");

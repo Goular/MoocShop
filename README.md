@@ -336,5 +336,64 @@
 
 ### 一般创建对象的的流程
 <pre>
-    
+    M层:
+        /**
+         * 创建管理员
+         */
+        public function reg($data){
+            $this->scenario = 'adminadd';
+            if($this->load($data) && $this->validate()){
+                $this->adminpass = md5($this->adminpass);
+                if($this->save(false)){//这个方法中的false为是否进行校验，因为之前为validate的内容
+                    return true;
+                }
+                return false;
+            }
+            return false;
+        }
+        
+    V层:
+        <div class="container">
+            <?php
+            if (Yii::$app->session->hasFlash('info')) {
+                echo Yii::$app->session->getFlash('info');
+            }
+
+            $form = ActiveForm::begin([
+                'options' => ['class' => 'new_user_form inline-input'],
+                'fieldConfig' => [
+                    'template' => '<div class="span12 field-box">{label}{input}</div>{error}'
+                ]
+            ]);
+            ?>
+            <?php echo $form->field($model, 'adminuser')->textInput(['class' => 'span9']); ?>
+            <?php echo $form->field($model, 'adminemail')->textInput(['class' => 'span9']); ?>
+            <?php echo $form->field($model, 'adminpass')->passwordInput(['class' => 'span9']); ?>
+            <?php echo $form->field($model, 'repass')->passwordInput(['class' => 'span9']); ?>
+            <div class="span11 field-box actions">
+                <?php echo Html::submitButton('创建', ['class' => 'btn-glow primary']); ?>
+                <span>或者</span>
+                <?php echo Html::resetButton('取消', ['class' => 'reset']); ?>
+            </div>
+            <?php ActiveForm::end(); ?>
+        </div>
+        
+    C层:
+        public function actionReg()
+        {
+            //1.设置父模板
+            $this->layout = "admin_main";
+            $model = new Admin();
+            if(\Yii::$app->request->isPost){
+                $post = \Yii::$app->request->post();
+                if($model->reg($post)){
+                    \Yii::$app->session->setFlash('info','添加成功!');
+                }else{
+                    \Yii::$app->session->setFlash('info','添加失败!');
+                }
+            }
+            $model->adminpass = "";
+            $model->repass = "";
+            return $this->render("reg",['model'=>$model]);
+        }
 </pre>
