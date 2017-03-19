@@ -308,6 +308,13 @@
         ->setTo('to@domain.com')
         ->setSubject('Message subject')
         ->send();
+        
+    你可以指定不同的视图文件的 HTML 和纯文本邮件内容：
+    
+    Yii::$app->mailer->compose([
+        'html' => 'contact-html',
+        'text' => 'contact-text',
+    ]);
 </pre>
 
 ### 设置全局的参数(电子邮箱，key等配置内容)
@@ -428,4 +435,10 @@
         'action' => ['member/reg']
     ]);
     ?>
+</pre>
+
+### ActiveForm的名字
+<pre>
+    ActiveForm返回的表单名字为表单数组，数组的名字为当前model::className();
+    <input type="text" id="user-useremail" class="le-input" name="User[useremail]">    
 </pre>

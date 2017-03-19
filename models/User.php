@@ -55,7 +55,7 @@ class User extends \yii\db\ActiveRecord
             if (preg_match('/@/', $this->loginname)) {
                 $loginname = "useremail";
             }
-            $data = self::find()->where($loginname.' = :loginname and userpass = :pass', [':loginname' => $this->loginname, ':pass' => md5($this->userpass)])->one();
+            $data = self::find()->where($loginname . ' = :loginname and userpass = :pass', [':loginname' => $this->loginname, ':pass' => md5($this->userpass)])->one();
             if (is_null($data)) {
                 $this->addError("userpass", "用户名或者密码错误");
             }
@@ -73,25 +73,44 @@ class User extends \yii\db\ActiveRecord
             'userpass' => '用户密码',
             'useremail' => '电子邮箱',
             'createtime' => '创建时间',
-            'loginname'=>'用户名/电子邮箱'
+            'loginname' => '用户名/电子邮箱'
         ];
     }
 
-    public function getProfile(){
-        return $this->hasOne(Profile::className(),['userid'=>'userid']);
+    public function getProfile()
+    {
+        return $this->hasOne(Profile::className(), ['userid' => 'userid']);
     }
 
     //默认场景，这样能够控制来源
-    public function reg($data,$scenario = 'reg'){
+    public function reg($data, $scenario = 'reg')
+    {
         $this->scenario = $scenario;
-        if($this->load($data) && $this->validate()){
+        if ($this->load($data) && $this->validate()) {
             //为什么不直接save()，因为还要对密码进行处理,处理完再去save
             $this->createtime = time();
             $this->userpass = md5($this->userpass);
-            if($this->save(false)){
+            if ($this->save(false)) {
                 return true;
             }
             return false;
+        }
+        return false;
+    }
+
+    public function regByMail($data)
+    {
+        $data['User']['username'] = 'imooc_' . uniqid();
+        $data['User']['userpass'] = uniqid();
+        $this->scenario = "regbymail";
+        if ($this->load($data) && $this->validate()) {
+            $mailer = Yii::$app->mailer->compose('createuser', ['userpass' => $data['User']['userpass'], 'username' => $data['User']['username']]);
+            $mailer->setFrom(Yii::$app->params['adminEmail']);
+            $mailer->setTo($data['User']['useremail']);
+            $mailer->setSubject('Goular商城-新建用户');
+            if ($mailer->send() && $this->reg($data, 'regbymail')) {
+                return true;
+            }
         }
         return false;
     }
