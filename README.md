@@ -409,3 +409,23 @@
 <pre>
     需要先删除外键表，再去删除主键表的内容，为了防止操作中断异常，记得采用事务的操作
 </pre>
+
+### 单页面多表单的显示
+<pre>
+    此时我们需要在ActiveForm添加action的选项:
+    <?php
+    if (Yii::$app->session->hasFlash('info')) {
+        echo Yii::$app->session->getFlash('info');
+    }
+    $form = ActiveForm::begin([
+        'fieldConfig' => [
+            'template' => '<div class="field-row">{label}{input}</div>{error}'
+        ],
+        'options' => [
+            'class' => 'register-form cf-style-1',
+            'role' => 'form',
+        ],
+        'action' => ['member/reg']
+    ]);
+    ?>
+</pre>

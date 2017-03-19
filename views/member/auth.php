@@ -1,3 +1,8 @@
+<?php
+use yii\bootstrap\ActiveForm;
+use yii\helpers\Html;
+
+?>
 <!-- ========================================= MAIN ========================================= -->
 <main id="authentication" class="inner-bottom-md">
     <div class="container">
@@ -37,9 +42,9 @@
                         	<span class="pull-left">
                         		<label class="content-color"><input type="checkbox"
                                                                     class="le-checbox auto-width inline"> <span
-                                        class="bold">记住我</span></label>
+                                            class="bold">记住我</span></label>
                         	</span>
-                        	<span class="pull-right">
+                            <span class="pull-right">
                         		<a href="#" class="content-color bold">忘记密码 ?</a>
                         	</span>
                         </div>
@@ -58,16 +63,26 @@
 
                     <p>创建一个属于你自己的账户</p>
 
-                    <form role="form" class="register-form cf-style-1">
-                        <div class="field-row">
-                            <label>电子邮箱</label>
-                            <input type="text" class="le-input">
-                        </div><!-- /.field-row -->
-
-                        <div class="buttons-holder">
-                            <button type="submit" class="le-button huge">注册</button>
-                        </div><!-- /.buttons-holder -->
-                    </form>
+                    <?php
+                    if (Yii::$app->session->hasFlash('info')) {
+                        echo Yii::$app->session->getFlash('info');
+                    }
+                    $form = ActiveForm::begin([
+                        'fieldConfig' => [
+                            'template' => '<div class="field-row">{label}{input}</div>{error}'
+                        ],
+                        'options' => [
+                            'class' => 'register-form cf-style-1',
+                            'role' => 'form',
+                        ],
+                        'action' => ['member/reg']
+                    ]);
+                    ?>
+                    <?php echo $form->field($model, 'useremail')->textInput(['class' => 'le-input']); ?>
+                    <div class="buttons-holder">
+                        <?php echo Html::submitButton('注册', ['class' => 'le-button huge']); ?>
+                    </div><!-- /.buttons-holder -->
+                    <?php ActiveForm::end(); ?>
 
                     <h2 class="semi-bold">加入我们您将会享受到前所未有的购物体验 :</h2>
 

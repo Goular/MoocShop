@@ -16,6 +16,8 @@ use Yii;
 class User extends \yii\db\ActiveRecord
 {
     public $repass;
+    public $loginname;
+    public $rememberMe = true;
 
     /**
      * @inheritdoc
@@ -71,6 +73,7 @@ class User extends \yii\db\ActiveRecord
             'userpass' => '用户密码',
             'useremail' => '电子邮箱',
             'createtime' => '创建时间',
+            'loginname'=>'用户名/电子邮箱'
         ];
     }
 

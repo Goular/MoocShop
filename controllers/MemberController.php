@@ -2,27 +2,17 @@
 
 namespace app\controllers;
 
+use app\models\User;
+
 class MemberController extends \yii\web\Controller
 {
     public function actionAuth()
     {
         $this->layout = "layout_parent_nav";
-        return $this->render('auth');
-    }
 
-    public function actionIndex()
-    {
-        return $this->render('index');
-    }
 
-    public function actionLogin()
-    {
-        return $this->render('login');
-    }
-
-    public function actionRegister()
-    {
-        return $this->render('register');
+        $model = new User();
+        return $this->render('auth', ['model' => $model]);
     }
 
 }
