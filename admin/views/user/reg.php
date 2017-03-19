@@ -1,3 +1,8 @@
+<?php
+use yii\helpers\Html;
+use yii\bootstrap\ActiveForm;
+
+?>
 <!-- main container -->
 <div class="content">
     <div class="container-fluid">
@@ -8,43 +13,29 @@
                 <!-- left column -->
                 <div class="span9 with-sidebar">
                     <div class="container">
-                        <form id="w0" class="new_user_form inline-input" action="/index.php?r=admin%2Fuser%2Freg"
-                              method="post">
-                            <input type="hidden" name="_csrf"
-                                   value="TDdVOGxYYWg.eTJeFGpMAn0PNGgULhQ9PQc0dDk7KR4ocARBXiwiGg==">
-
-                            <div class="form-group field-user-username">
-                                <div class="span12 field-box">
-                                    <label class="control-label" for="user-username">用户名</label>
-                                    <input type="text" id="user-username" class="span9" name="User[username]"></div>
-                                <p class="help-block help-block-error"></p>
-                            </div>
-                            <div class="form-group field-user-useremail">
-                                <div class="span12 field-box">
-                                    <label class="control-label" for="user-useremail">电子邮箱</label>
-                                    <input type="text" id="user-useremail" class="span9" name="User[useremail]"></div>
-                                <p class="help-block help-block-error"></p>
-                            </div>
-                            <div class="form-group field-user-userpass">
-                                <div class="span12 field-box">
-                                    <label class="control-label" for="user-userpass">用户密码</label>
-                                    <input type="password" id="user-userpass" class="span9" name="User[userpass]"
-                                           value=""></div>
-                                <p class="help-block help-block-error"></p>
-                            </div>
-                            <div class="form-group field-user-repass">
-                                <div class="span12 field-box">
-                                    <label class="control-label" for="user-repass">确认密码</label>
-                                    <input type="password" id="user-repass" class="span9" name="User[repass]" value="">
-                                </div>
-                                <p class="help-block help-block-error"></p>
-                            </div>
-                            <div class="span11 field-box actions">
-                                <button type="submit" class="btn-glow primary">添加</button>
-                                <span>OR</span>
-                                <button type="reset" class="reset">取消</button>
-                            </div>
-                        </form>
+                        <?php
+                        if (Yii::$app->session->hasFlash('info')) {
+                            echo Yii::$app->session->getFlash('info');
+                        }
+                        $form = ActiveForm::begin([
+                            'fieldConfig' => [
+                                'template' => '<div class="span12 field-box">{label}{input}</div>{error}',
+                            ],
+                            'options' => [
+                                'class' => 'new_user_form inline-input',
+                            ],
+                        ]);
+                        echo $form->field($model, 'username')->textInput(['class' => 'span9']);
+                        echo $form->field($model, 'useremail')->textInput(['class' => 'span9']);
+                        echo $form->field($model, 'userpass')->passwordInput(['class' => 'span9']);
+                        echo $form->field($model, 'repass')->passwordInput(['class' => 'span9']);
+                        ?>
+                        <div class="span11 field-box actions">
+                            <?php echo Html::submitButton('添加', ['class' => 'btn-glow primary']); ?>
+                            <span>OR</span>
+                            <?php echo Html::resetButton('取消', ['class' => 'reset']); ?>
+                        </div>
+                        <?php ActiveForm::end(); ?>
                     </div>
                 </div>
                 <!-- side right column -->

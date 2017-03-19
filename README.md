@@ -399,3 +399,13 @@
 </pre>
 
 ### 不建议真的把数据删除，因为很容易造成关联数据的丢失。
+
+### joinWith()
+<pre>
+    User模型类中使用joinwith("profile") 中的profile 会在寻找User类中的getProfile方法，然后形成leftjoin的查询，
+</pre>
+
+###　关联表删除
+<pre>
+    需要先删除外键表，再去删除主键表的内容，为了防止操作中断异常，记得采用事务的操作
+</pre>
