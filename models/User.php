@@ -98,6 +98,21 @@ class User extends \yii\db\ActiveRecord
         return false;
     }
 
+    //登录操作
+    public function login($data)
+    {
+        $this->scenario = "login";
+        if ($this->load($data) && $this->validate()) {
+            $lifetime = $this->rememberMe ? 24 * 3600 : 0;//sessionID的有效期
+            $session = \Yii::$app->session;
+            session_set_cookie_params($lifetime);//设置有效期
+            $session['loginname'] = $this->loginname;
+            $session['isLogin'] = 1;
+            return (bool)$session['isLogin'];
+        }
+        return false;
+    }
+
     public function regByMail($data)
     {
         $data['User']['username'] = 'imooc_' . uniqid();

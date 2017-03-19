@@ -410,6 +410,11 @@
 ### joinWith()
 <pre>
     User模型类中使用joinwith("profile") 中的profile 会在寻找User类中的getProfile方法，然后形成leftjoin的查询，
+
+    public function getProfile()
+    {
+        return $this->hasOne(Profile::className(), ['userid' => 'userid']);
+    }
 </pre>
 
 ###　关联表删除
