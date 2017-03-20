@@ -447,3 +447,9 @@
     ActiveForm返回的表单名字为表单数组，数组的名字为当前model::className();
     <input type="text" id="user-useremail" class="le-input" name="User[useremail]">    
 </pre>
+
+### 无限级分类和传统的每一级分类即创建一个表之间的差异
+<pre>
+    无限级分类在代码逻辑上会复杂了，但是减少创建等级表的压力
+    传统的分类的优势是代码比较简单
+</pre>

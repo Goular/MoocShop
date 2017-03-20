@@ -43,3 +43,14 @@ CREATE TABLE `shop_profile` (
  PRIMARY KEY (`id`),
  UNIQUE KEY `shop_profile_userid` (`userid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- 无限分类的表 (2017-03-20)
+DROP TABLE IF EXISTS `shop_category`;
+CREATE TABLE IF NOT EXISTS `shop_category`(
+  `cateid` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `title` VARCHAR(32) NOT NULL DEFAULT '',
+  `parentid` BIGINT UNSIGNED NOT NULL DEFAULT '0',
+  `createtime` INT UNSIGNED NOT NULL DEFAULT '0',
+  PRIMARY KEY(`cateid`),
+  KEY shop_category_parentid(`parentid`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
