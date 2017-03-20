@@ -22,8 +22,9 @@ class Category extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['parentid', 'createtime'], 'integer'],
-            [['title'], 'string', 'max' => 32],
+            ['parentid', 'required', 'message' => '上级分类不能为空'],
+            ['title', 'required', 'message' => '标题名称不能为空'],
+            ['createtime', 'safe']
         ];
     }
 
@@ -36,4 +37,21 @@ class Category extends \yii\db\ActiveRecord
             'createtime' => '创建时间',
         ];
     }
+
+    //添加分类的内容
+    public function add($data){
+        //在添加分类的时候我们都需要添加创建时间
+        $data['Category']['createtime'] = time();
+        if($this->load($data) && $this->save()){
+            return true;
+        }
+        return false;
+    }
+
+    //获取选择分类的选项
+    public function getOptions(){
+        $options = ['添加顶级分类'];
+        return $options;
+    }
+
 }

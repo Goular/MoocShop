@@ -2,18 +2,23 @@
 
 namespace app\admin\controllers;
 
+use app\models\Category;
+
 class CategoryController extends \yii\web\Controller
 {
     public $layout = "admin_main";
 
     public function actionAdd()
     {
-        return $this->render('add');
-    }
-
-    public function actionIndex()
-    {
-        return $this->render('index');
+        $model = new Category();
+        $list = $model->getOptions();
+        if (\Yii::$app->request->isPost) {
+            $post = \Yii::$app->request->post();
+            if ($model->add($post)) {
+                \Yii::$app->session->setFlash('info', '添加成功!');
+            }
+        }
+        return $this->render('add', ['list' => $list, 'model' => $model]);
     }
 
     public function actionCates()

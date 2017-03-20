@@ -1,3 +1,8 @@
+<?php
+use yii\helpers\Html;
+use yii\bootstrap\ActiveForm;
+
+?>
 <!-- main container -->
 <div class="content">
     <div class="container-fluid">
@@ -8,38 +13,29 @@
                 <!-- left column -->
                 <div class="span9 with-sidebar">
                     <div class="container">
-                        <form id="w0" class="new_user_form inline-input" action="/index.php?r=admin%2Fcategory%2Fadd"
-                              method="post">
-                            <input type="hidden" name="_csrf"
-                                   value="RHBnRlg1VWY2PgAgIAd4DHVIBhYgQyAzNUAGCg1WHRAgNzY/akEWFA==">
 
-                            <div class="form-group field-category-parentid required">
-                                <div class="span12 field-box">
-                                    <label class="control-label" for="category-parentid">上级分类</label>
-                                    <select id="category-parentid" class="form-control" name="Category[parentid]">
-                                        <option value="0">添加顶级分类</option>
-                                        <option value="1">|-----服装</option>
-                                        <option value="2">|-----|-----上衣</option>
-                                        <option value="3">|-----电子产品</option>
-                                        <option value="6">|-----|-----手机</option>
-                                        <option value="4">|-----充气娃娃</option>
-                                        <option value="5">|-----|-----仓也空井也空</option>
-                                    </select>
-                                </div>
-                                <p class="help-block help-block-error"></p>
-                            </div>
-                            <div class="form-group field-category-title required">
-                                <div class="span12 field-box">
-                                    <label class="control-label" for="category-title">分类名称</label>
-                                    <input type="text" id="category-title" class="span9" name="Category[title]"></div>
-                                <p class="help-block help-block-error"></p>
-                            </div>
-                            <div class="span11 field-box actions">
-                                <button type="submit" class="btn-glow primary">添加</button>
-                                <span>OR</span>
-                                <button type="reset" class="reset">取消</button>
-                            </div>
-                        </form>
+                        <?php
+                        if (Yii::$app->session->hasFlash('info')) {
+                            echo Yii::$app->session->getFlash('info');
+                        }
+                        $form = ActiveForm::begin([
+                            'fieldConfig' => [
+                                'template' => '<div class="span12 field-box">{label}{input}</div>{error}',
+                            ],
+                            'options' => [
+                                'class' => 'new_user_form inline-input',
+                            ],
+                        ]);
+                        echo $form->field($model, 'parentid')->dropDownList($list);
+                        echo $form->field($model, 'title')->textInput(['class' => 'span9']);
+                        ?>
+                        <div class="span11 field-box actions">
+                            <?php echo Html::submitButton('添加', ['class' => 'btn-glow primary']); ?>
+                            <span>OR</span>
+                            <?php echo Html::resetButton('取消', ['class' => 'reset']); ?>
+                        </div>
+                        <?php ActiveForm::end(); ?>
+
                     </div>
                 </div>
                 <!-- side right column -->
