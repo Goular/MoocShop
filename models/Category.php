@@ -14,17 +14,11 @@ use Yii;
  */
 class Category extends \yii\db\ActiveRecord
 {
-    /**
-     * @inheritdoc
-     */
     public static function tableName()
     {
         return '{{%category}}';
     }
 
-    /**
-     * @inheritdoc
-     */
     public function rules()
     {
         return [
@@ -33,16 +27,13 @@ class Category extends \yii\db\ActiveRecord
         ];
     }
 
-    /**
-     * @inheritdoc
-     */
     public function attributeLabels()
     {
         return [
-            'cateid' => 'Cateid',
-            'title' => 'Title',
-            'parentid' => 'Parentid',
-            'createtime' => 'Createtime',
+            'cateid' => '分类ID',
+            'title' => '分类名称',
+            'parentid' => '上次分类的ID',
+            'createtime' => '创建时间',
         ];
     }
 }
