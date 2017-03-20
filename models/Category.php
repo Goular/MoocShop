@@ -71,7 +71,9 @@ class Category extends \yii\db\ActiveRecord
             //遍历统一等级，同时做一个
             if ($cate['parentid'] == $pid) {
                 $tree[] = $cate;
+                $tree = array_merge($tree,$this->getTree($cates,$cate['cateid']));
             }
+            return $tree;
         }
     }
 
