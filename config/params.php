@@ -16,6 +16,6 @@ return [
         'accessKey' => 'IIimd48IpIPRGXwUrzPhdFa3HAzvysRV8JQRFpBv',
         'secretKey' => 'iVbVVOq5YMSHy6dhzMxZ0OODipV8P-18LZgXJ8dW',
         'bucket' => 'goular',
-        'domain' => 'on5lx46o2.bkt.clouddn.com'
+        'domain' => 'http://on5lx46o2.bkt.clouddn.com/'
     ]
 ];
