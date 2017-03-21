@@ -23,7 +23,9 @@ class CategoryController extends \yii\web\Controller
 
     public function actionCates()
     {
-        return $this->render('cates');
+        $model = new Category();
+        $cates = $model->getTreeList();
+        return $this->render('cates',['cates'=>$cates]);
     }
 
 }
