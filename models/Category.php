@@ -68,13 +68,71 @@ class Category extends \yii\db\ActiveRecord
     {
         $tree = [];
         foreach ($cates as $cate) {
-            //遍历统一等级，同时做一个
             if ($cate['parentid'] == $pid) {
                 $tree[] = $cate;
-                $tree = array_merge($tree,$this->getTree($cates,$cate['cateid']));
+                $tree = array_merge($tree, $this->getTree($cates, $cate['cateid']));
             }
-            return $tree;
         }
+        return $tree;
     }
 
+    /**
+     * 注意，这里是为排序好的队列进行处理
+     * @param $data
+     * @param string $p
+     * @return array
+     * 排序的顺序为
+     * 1
+     * 1-2
+     * 1-3
+     * 2
+     * 2-1
+     * 2-2
+     * 2-3
+     * 3
+     * ...
+     */
+    public function setPrefix($data, $p = "|----")
+    {
+        $tree = [];
+        $num = 1;
+        $prefix = [0 => 1];
+        while ($val = current($data)) {
+            $key = key($data);
+            if ($key > 0) {
+                //如果排序好的上一个的父级ID与当前元素的父级ID不一样，那么就会为当前的num+1
+                if ($data[$key - 1]['parentid'] != $val['parentid']) {
+                    $num++;
+                }
+            }
+            if (array_key_exists($val['parentid'], $prefix)) {
+                $num = $prefix[$val['parentid']];
+            }
+            $val['title'] = str_repeat($p, $num) . $val['title'];
+            $prefix[$val['parentid']] = $num;
+            $tree[] = $val;
+            next($data);
+        }
+        return $tree;
+    }
+
+    //获取在添加下拉列表时需要显示的内容
+    public function getOptions()
+    {
+        $data = $this->getData();
+        $tree = $this->getTree($data);
+        $tree = $this->setPrefix($tree);
+        $options = ['添加顶级分类'];//第一个的显示内容，用于添加顶级的分类
+        foreach ($tree as $cate) {
+            $options[$cate['cateid']] = $cate['title'];
+        }
+        return $options;//返回显示的分类的内容
+    }
+
+    public function getTreeList()
+    {
+        $data = $this->getData();//获取原始数据
+        $tree = $this->getTree($data);//排序
+        return $tree = $this->setPrefix($tree);
+    }
 }
