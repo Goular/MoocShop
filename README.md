@@ -468,3 +468,10 @@
 <pre>
     有国内图床资源与国外图床资源选择，这个由于线路的问题我们选择七牛云存储.
 </pre>
+
+### 七牛云存储的使用
+<pre>
+    使用composer安装七牛云存储的SDK:
+    运行 Composer 命令安装最新稳定版本的 SDK：
+        php composer.phar require qiniu/php-sdk
+</pre>
