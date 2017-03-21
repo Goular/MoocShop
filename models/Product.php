@@ -8,6 +8,8 @@ use Qiniu\Storage\UploadManager;
 
 class Product extends \yii\db\ActiveRecord
 {
+    public $cate;
+
     public static function tableName()
     {
         return '{{%product}}';
@@ -30,18 +32,27 @@ class Product extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'productid' => '商品ID',
-            'cateid' => '商品分类ID',
-            'title' => '商品标题',
+            'cateid' => '分类名称',
+            'title' => '商品名称',
             'descr' => '商品描述',
-            'num' => '库存数量',
             'price' => '商品价格',
-            'cover' => '商品封面',
-            'pics' => '商品价格',
-            'issale' => '上架情况',
-            'saleprice' => '销售价格',
-            'ishot' => '热销商品',
-            'createtime' => '创建时间',
+            'ishot' => '是否热卖',
+            'issale' => '是否促销',
+            'saleprice' => '促销价格',
+            'num' => '库存',
+            'cover' => '图片封面',
+            'pics' => '商品图片',
+            'ison' => '是否上架',
+            'istui' => '是否推荐',
         ];
+    }
+
+    //添加商品的方法
+    public function add($data)
+    {
+        if ($this->load($data) && $this->save()) {
+            return true;
+        }
+        return false;
     }
 }
