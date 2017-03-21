@@ -13,6 +13,11 @@ use yii\helpers\Url;
                         <span>&#43;</span>添加新分类</a></div>
             </div>
             <!-- Users table -->
+            <?php
+                if(Yii::$app->session->hasFlash('info')){
+                    echo Yii::$app->session->getFlash('info');
+                }
+            ?>
             <div class="row-fluid table">
                 <table class="table table-hover">
                     <thead>

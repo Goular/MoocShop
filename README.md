@@ -461,3 +461,5 @@
 
     select * from category order by cate_tag;//即可获得排序好的内容
 </pre>
+
+### ActiveFrom中的Droplist中的key就是数组的key
