@@ -16,26 +16,26 @@ use yii\helpers\Url;
 
     <title>慕课商城</title>
     <!-- Bootstrap Core CSS -->
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
 
     <!-- Customizable CSS -->
-    <link rel="stylesheet" href="assets/css/main.css">
-    <link rel="stylesheet" href="assets/css/red.css">
-    <link rel="stylesheet" href="assets/css/owl.carousel.css">
-    <link rel="stylesheet" href="assets/css/owl.transitions.css">
-    <link rel="stylesheet" href="assets/css/animate.min.css">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/red.css">
+    <link rel="stylesheet" href="/assets/css/owl.carousel.css">
+    <link rel="stylesheet" href="/assets/css/owl.transitions.css">
+    <link rel="stylesheet" href="/assets/css/animate.min.css">
 
 
     <!-- Icons/Glyphs -->
-    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/assets/css/font-awesome.min.css">
 
     <!-- Favicon -->
-    <link rel="shortcut icon" href="assets/images/favicon.ico">
+    <link rel="shortcut icon" href="/assets/images/favicon.ico">
 
     <!-- HTML5 elements and media queries Support for IE8 : HTML5 shim and Respond.js -->
     <!--[if lt IE 9]>
-    <script src="assets/js/html5shiv.js"></script>
-    <script src="assets/js/respond.min.js"></script>
+    <script src="/assets/js/html5shiv.js"></script>
+    <script src="/assets/js/respond.min.js"></script>
     <![endif]-->
 
 
@@ -79,7 +79,7 @@ use yii\helpers\Url;
                 <!-- ============================================================= LOGO ============================================================= -->
                 <div class="logo">
                     <a href="index.html">
-                        <img alt="logo" src="assets/images/logo.PNG" width="233" height="54"/>
+                        <img alt="logo" src="/assets/images/logo.PNG" width="233" height="54"/>
                     </a>
                 </div><!-- /.logo -->
                 <!-- ============================================================= LOGO : END ============================================================= -->
@@ -138,7 +138,7 @@ use yii\helpers\Url;
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                                 <div class="basket-item-count">
                                     <span class="count">3</span>
-                                    <img src="assets/images/icon-cart.png" alt=""/>
+                                    <img src="/assets/images/icon-cart.png" alt=""/>
                                 </div>
 
                                 <div class="total-price-basket">
@@ -155,7 +155,7 @@ use yii\helpers\Url;
                                         <div class="row">
                                             <div class="col-xs-4 col-sm-4 no-margin text-center">
                                                 <div class="thumb">
-                                                    <img alt="" src="assets/images/products/product-small-01.jpg"/>
+                                                    <img alt="" src="/assets/images/products/product-small-01.jpg"/>
                                                 </div>
                                             </div>
                                             <div class="col-xs-8 col-sm-8 no-margin">
@@ -172,7 +172,7 @@ use yii\helpers\Url;
                                         <div class="row">
                                             <div class="col-xs-4 col-sm-4 no-margin text-center">
                                                 <div class="thumb">
-                                                    <img alt="" src="assets/images/products/product-small-01.jpg"/>
+                                                    <img alt="" src="/assets/images/products/product-small-01.jpg"/>
                                                 </div>
                                             </div>
                                             <div class="col-xs-8 col-sm-8 no-margin">
@@ -189,7 +189,7 @@ use yii\helpers\Url;
                                         <div class="row">
                                             <div class="col-xs-4 col-sm-4 no-margin text-center">
                                                 <div class="thumb">
-                                                    <img alt="" src="assets/images/products/product-small-01.jpg"/>
+                                                    <img alt="" src="/assets/images/products/product-small-01.jpg"/>
                                                 </div>
                                             </div>
                                             <div class="col-xs-8 col-sm-8 no-margin">
@@ -253,8 +253,8 @@ use yii\helpers\Url;
 
                                         <div class="col-xs-12 col-sm-3 no-margin">
                                             <a href="#" class="thumb-holder">
-                                                <img alt="" src="assets/images/blank.gif"
-                                                     data-echo="assets/images/products/product-small-01.jpg"/>
+                                                <img alt="" src="/assets/images/blank.gif"
+                                                     data-echo="/assets/images/products/product-small-01.jpg"/>
                                             </a>
                                         </div>
                                     </div>
@@ -272,8 +272,8 @@ use yii\helpers\Url;
                                         </div>
                                         <div class="col-xs-12 col-sm-3 no-margin">
                                             <a href="#" class="thumb-holder">
-                                                <img alt="" src="assets/images/blank.gif"
-                                                     data-echo="assets/images/products/product-small-02.jpg"/>
+                                                <img alt="" src="/assets/images/blank.gif"
+                                                     data-echo="/assets/images/products/product-small-02.jpg"/>
                                             </a>
                                         </div>
                                     </div>
@@ -292,8 +292,8 @@ use yii\helpers\Url;
 
                                         <div class="col-xs-12 col-sm-3 no-margin">
                                             <a href="#" class="thumb-holder">
-                                                <img alt="" src="assets/images/blank.gif"
-                                                     data-echo="assets/images/products/product-small-03.jpg"/>
+                                                <img alt="" src="/assets/images/blank.gif"
+                                                     data-echo="/assets/images/products/product-small-03.jpg"/>
                                             </a>
                                         </div>
                                     </div>
@@ -324,8 +324,8 @@ use yii\helpers\Url;
 
                                         <div class="col-xs-12 col-sm-3 no-margin">
                                             <a href="#" class="thumb-holder">
-                                                <img alt="" src="assets/images/blank.gif"
-                                                     data-echo="assets/images/products/product-small-04.jpg"/>
+                                                <img alt="" src="/assets/images/blank.gif"
+                                                     data-echo="/assets/images/products/product-small-04.jpg"/>
                                             </a>
                                         </div>
                                     </div>
@@ -345,8 +345,8 @@ use yii\helpers\Url;
 
                                         <div class="col-xs-12 col-sm-3 no-margin">
                                             <a href="#" class="thumb-holder">
-                                                <img alt="" src="assets/images/blank.gif"
-                                                     data-echo="assets/images/products/product-small-05.jpg"/>
+                                                <img alt="" src="/assets/images/blank.gif"
+                                                     data-echo="/assets/images/products/product-small-05.jpg"/>
                                             </a>
                                         </div>
                                     </div>
@@ -365,8 +365,8 @@ use yii\helpers\Url;
 
                                         <div class="col-xs-12 col-sm-3 no-margin">
                                             <a href="#" class="thumb-holder">
-                                                <img alt="" src="assets/images/blank.gif"
-                                                     data-echo="assets/images/products/product-small-06.jpg"/>
+                                                <img alt="" src="/assets/images/blank.gif"
+                                                     data-echo="/assets/images/products/product-small-06.jpg"/>
                                             </a>
                                         </div>
                                     </div>
@@ -397,8 +397,8 @@ use yii\helpers\Url;
 
                                         <div class="col-xs-12 col-sm-3 no-margin">
                                             <a href="#" class="thumb-holder">
-                                                <img alt="" src="assets/images/blank.gif"
-                                                     data-echo="assets/images/products/product-small-07.jpg"/>
+                                                <img alt="" src="/assets/images/blank.gif"
+                                                     data-echo="/assets/images/products/product-small-07.jpg"/>
                                             </a>
                                         </div>
                                     </div>
@@ -417,8 +417,8 @@ use yii\helpers\Url;
 
                                         <div class="col-xs-12 col-sm-3 no-margin">
                                             <a href="#" class="thumb-holder">
-                                                <img alt="" src="assets/images/blank.gif"
-                                                     data-echo="assets/images/products/product-small-08.jpg"/>
+                                                <img alt="" src="/assets/images/blank.gif"
+                                                     data-echo="/assets/images/products/product-small-08.jpg"/>
                                             </a>
                                         </div>
                                     </div>
@@ -438,8 +438,8 @@ use yii\helpers\Url;
 
                                         <div class="col-xs-12 col-sm-3 no-margin">
                                             <a href="#" class="thumb-holder">
-                                                <img alt="" src="assets/images/blank.gif"
-                                                     data-echo="assets/images/products/product-small-09.jpg"/>
+                                                <img alt="" src="/assets/images/blank.gif"
+                                                     data-echo="/assets/images/products/product-small-09.jpg"/>
                                             </a>
                                         </div>
 
@@ -471,7 +471,7 @@ use yii\helpers\Url;
                     <!-- ============================================================= CONTACT INFO ============================================================= -->
                     <div class="contact-info">
                         <div class="footer-logo">
-                            <img alt="logo" src="assets/images/logo.PNG" width="233" height="54"/>
+                            <img alt="logo" src="/assets/images/logo.PNG" width="233" height="54"/>
                         </div><!-- /.footer-logo -->
 
                         <p class="regular-bold"> 请通过电话，电子邮件随时联系我们</p>
@@ -563,10 +563,10 @@ use yii\helpers\Url;
                 <div class="col-xs-12 col-sm-6 no-margin">
                     <div class="payment-methods ">
                         <ul>
-                            <li><img alt="" src="assets/images/payments/payment-visa.png"></li>
-                            <li><img alt="" src="assets/images/payments/payment-master.png"></li>
-                            <li><img alt="" src="assets/images/payments/payment-paypal.png"></li>
-                            <li><img alt="" src="assets/images/payments/payment-skrill.png"></li>
+                            <li><img alt="" src="/assets/images/payments/payment-visa.png"></li>
+                            <li><img alt="" src="/assets/images/payments/payment-master.png"></li>
+                            <li><img alt="" src="/assets/images/payments/payment-paypal.png"></li>
+                            <li><img alt="" src="/assets/images/payments/payment-skrill.png"></li>
                         </ul>
                     </div><!-- /.payment-methods -->
                 </div>
@@ -577,21 +577,21 @@ use yii\helpers\Url;
     <!-- ============================================================= FOOTER : END ============================================================= -->
 </div><!-- /.wrapper -->
 <!-- JavaScripts placed at the end of the document so the pages load faster -->
-<script src="assets/js/jquery-1.10.2.min.js"></script>
-<script src="assets/js/jquery-migrate-1.2.1.js"></script>
-<script src="assets/js/bootstrap.min.js"></script>
-<script src="assets/js/gmap3.min.js"></script>
-<script src="assets/js/bootstrap-hover-dropdown.min.js"></script>
-<script src="assets/js/owl.carousel.min.js"></script>
-<script src="assets/js/css_browser_selector.min.js"></script>
-<script src="assets/js/echo.min.js"></script>
-<script src="assets/js/jquery.easing-1.3.min.js"></script>
-<script src="assets/js/bootstrap-slider.min.js"></script>
-<script src="assets/js/jquery.raty.min.js"></script>
-<script src="assets/js/jquery.prettyPhoto.min.js"></script>
-<script src="assets/js/jquery.customSelect.min.js"></script>
-<script src="assets/js/wow.min.js"></script>
-<script src="assets/js/scripts.js"></script>
+<script src="/assets/js/jquery-1.10.2.min.js"></script>
+<script src="/assets/js/jquery-migrate-1.2.1.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+<script src="/assets/js/gmap3.min.js"></script>
+<script src="/assets/js/bootstrap-hover-dropdown.min.js"></script>
+<script src="/assets/js/owl.carousel.min.js"></script>
+<script src="/assets/js/css_browser_selector.min.js"></script>
+<script src="/assets/js/echo.min.js"></script>
+<script src="/assets/js/jquery.easing-1.3.min.js"></script>
+<script src="/assets/js/bootstrap-slider.min.js"></script>
+<script src="/assets/js/jquery.raty.min.js"></script>
+<script src="/assets/js/jquery.prettyPhoto.min.js"></script>
+<script src="/assets/js/jquery.customSelect.min.js"></script>
+<script src="/assets/js/wow.min.js"></script>
+<script src="/assets/js/scripts.js"></script>
 
 </body>
 </html>
