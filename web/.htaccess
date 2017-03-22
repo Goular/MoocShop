@@ -4,6 +4,12 @@ IndexIgnore */*
 
 RewriteEngine on
 
+# 由于本地关闭HTTPS访问，所以这样去设置
+#RewriteBase /
+#RewriteCond %{SERVER_PORT} 80
+#RewriteRule ^(.*)$ https://localhost/$1 [R=301,L]
+
+
 # if a directory or a file exists, use it directly
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
