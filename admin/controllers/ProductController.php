@@ -98,4 +98,29 @@ class ProductController extends \yii\web\Controller
         $products = $model->offset($pager->offset)->limit($pager->limit)->all();
         return $this->render('products', ['pager' => $pager, 'products' => $products]);
     }
+
+    //修改商品的内容
+    public function actionMod(){
+
+    }
+
+    //删除指定的图片
+    public function actionRemovepic(){
+
+    }
+
+    //删除指定的商品的记录
+    public function actionDel(){
+
+    }
+
+    //商品上架操作
+    public function actionOn(){
+
+    }
+
+    //商品下架操作
+    public function actionOff(){
+
+    }
 }
