@@ -6,7 +6,7 @@ $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
-    'defaultRoute'=>'index',//设置默认的控制器
+    'defaultRoute' => 'index',//设置默认的控制器
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
@@ -56,6 +56,16 @@ $config = [
             ],
         ],
         */
+        'urlManager' => [
+            'enablePrettyUrl' => true,  //美化url==ture
+            'enableStrictParsing' => false,  //不启用严格解析
+            'showScriptName' => false,   //隐藏index.php
+            'rules' => [
+                "<module:[-\w]+>/<controller:[-\w]+>/<action:[-\w]+>/<id:\d+>" => "<module>/<controller>/<action>",
+                "<controller:[-\w]+>/<action:[-\w]+>/<id:\d+>" => "<controller>/<action>",
+                "<controller:[-\w]+>/<action:[-\w]+>" => "<controller>/<action>"
+            ],
+        ]
     ],
     'params' => $params,
     //配置模块的使用
