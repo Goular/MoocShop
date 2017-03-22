@@ -6,6 +6,7 @@ use app\models\Category;
 use app\models\Product;
 use Qiniu\Auth;
 use Qiniu\Storage\UploadManager;
+use yii\data\Pagination;
 
 class ProductController extends \yii\web\Controller
 {
@@ -90,6 +91,11 @@ class ProductController extends \yii\web\Controller
 
     public function actionProducts()
     {
-        return $this->render('products');
+        $model = Product::find();
+        $count = $model->count();
+        $pageSize = \Yii::$app->params['pageSize']['product'];
+        $pager = new Pagination(['totalCount' => $count, 'pageSize' => $pageSize]);
+        $products = $model->offset($pager->offset)->limit($pager->limit)->all();
+        return $this->render('products', ['pager' => $pager, 'products' => $products]);
     }
 }
