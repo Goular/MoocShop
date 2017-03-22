@@ -546,3 +546,43 @@
     2."../abc":上一级文件夹
     3.(重点)(重点)"/abc":根目录下的文件夹 ,这个在URLManager美化的时候会遇到问题，css找不到文件，此时使用根目录路径下的内容即可解决。
 </pre>
+
+### Yii2 路由美化
+<pre>
+    通常利用Apache的rewrite模块对 URL 进行重写的时候， rewrite规则会写在 .htaccess 文件里。但要使 apache 能够正常的读取.htaccess 文件的内容，就必须对.htaccess 所在目录进行配置。AllowOverride参数就是指明Apache服务器是否去找.htacess文件作为配置文件，如果设置为none,那么服务器将忽略.htacess文件，如果设置为All,那么所有在.htaccess文件里有的指令都将被重写。
+
+    1.配置apache服务器，开启mod_rewrite模块
+        （1）在apache目录中的httpd.conf文件中开启：去掉注释符“#”保存并重启服务器即可
+                LoadModule rewrite_module modules/mod_rewrite.so
+        （2）确保开启AllowOverride选项
+                AllowOverride all
+
+    2.配置路由组件
+        在web.php中的conponment数组中添加:
+            'urlManager' => [
+                'enablePrettyUrl' => true,//用于表明urlManager是否启用URL美化功能  path路径化
+                'showScriptName' => false, //true显示入口脚本index.php，false不显示
+            'suffix' => '.html', //指定续接在URL后面的一个后缀，如 .html 之类的。仅在 enablePrettyUrl 启用时有效
+                'rules' => [
+                    "<module:[-\w]+>/<controller:[-\w]+>/<action:[-\w]+>/<id:\d+>"=>"<module>/<controller>/<action>",
+                    "<controller:[-\w]+>/<action:[-\w]+>/<id:\d+>"=>"<controller>/<action>",
+                    "<controller:[-\w]+>/<action:[-\w]+>"=>"<controller>/<action>",
+    //                "admin-user/<action:\w+>/<id:\w+>"=>"admin-user/<action>",
+                ],
+            ],
+
+    3.在index.php脚本文件同级目录下添加.htaccess文件，添加规则使url隐藏入口脚本生效
+    Options +FollowSymLinks
+    IndexIgnore */*
+
+    RewriteEngine on
+
+    # if a directory or a file exists, use it directly
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+
+    # otherwise forward it to index.php
+    RewriteRule . ./index.php
+
+    4.以上配置完毕后，web/index.php?r=admin-user/update&id=1就可以使用path化的路由去访问，变成web/admin-user/update/1.html，当然原来的访问方式依然有效
+</pre>
