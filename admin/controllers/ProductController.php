@@ -100,27 +100,67 @@ class ProductController extends \yii\web\Controller
     }
 
     //修改商品的内容
-    public function actionMod(){
+    public function actionMod()
+    {
+        $cate = new Category();
+        $list = $cate->getOptions();
+        unset($list[0]);//删除第0个，"请选择分类的选项"
+        //获取商品的ID
+        $productId = \Yii::$app->request->get("productid");
+        $model = Product::find()->where('productid=:id', [':id' => $productId])->one();
+        if (\Yii::$app->request->isPost) {
+            $post = \Yii::$app->request->post();
+            //添加填充的资料到$model对象中，等待将数据添加到添加页上
 
+        }
+        //转跳到添加的页面
+        return $this->render('add', ['model' => $model, 'opts' => $list]);
     }
 
     //删除指定的图片
-    public function actionRemovepic(){
-
+    public function actionRemovepic()
+    {
+        $key = \Yii::$app->request->get('key');
+        $productId = \Yii::$app->request->get('productid');
+        $model = Product::find()->where('productid = :id', [':id' => $productId])->one();
+        //七牛移除代码
+        //
+        //
+        //
+        //
+        $pics = json_encode($model->pics, true);
+        unset($pics[$key]);
+        Product::updateAll(['pics' => json_encode($pics)], 'productid = :pid', [':pid' => $productId]);
+        return $this->redirect(['product/mod', 'productid' => $productId]);
     }
 
     //删除指定的商品的记录
-    public function actionDel(){
+    public function actionDel()
+    {
+        $productId = \Yii::$app->request->get("productid");
+        $model = Product::find()->where('productid = :id', [':pid' => $productId])->one();
+        //basename() 函数返回路径中的文件名部分。
+        $key = basename($model->cover);
+        //七牛删除图片
 
+        //删除商品的记录
+        Product::deleteAll('productid = :pid', [':pid' => $productId]);
+        return $this->redirect(['product/list']);
     }
 
     //商品上架操作
-    public function actionOn(){
-
+    public function actionOn()
+    {
+        $productId = \Yii::$app->request->get("productid");
+        Product::updateAll(['ison' => '1'], 'productid = :pid', [':pid' => $productId]);
+        return $this->redirect(['product/products']);
     }
 
     //商品下架操作
-    public function actionOff(){
-
+    public function actionOff()
+    {
+        $productid = \Yii::$app->request->get("productid");
+        Product::updateAll(['ison'=>'0'],'productid = :pid',[':pid'=>$productid]);
+        return $this->redirect(['product/products']);
     }
 }
