@@ -46,8 +46,8 @@ use yii\helpers\Html;
                         echo $form->field($model, 'issale')->radioList(['不促销', '促销'], ['class' => 'span8']);
                         echo $form->field($model, 'saleprice')->textInput(['class' => 'span9']);
                         echo $form->field($model, 'num')->textInput(['class' => 'span9']);
-//                        echo $form->field($model, 'ison')->radioList(['下架', '上架'], ['class' => 'span8']);
-//                        echo $form->field($model, 'istui')->radioList(['不推荐', '推荐'], ['class' => 'span8']);
+                        echo $form->field($model, 'ison')->radioList(['下架', '上架'], ['class' => 'span8']);
+                        echo $form->field($model, 'istui')->radioList(['不推荐', '推荐'], ['class' => 'span8']);
                         echo $form->field($model, 'cover')->fileInput(['class' => 'span9']);
                         if (!empty($model->cover)):
                             ?>
