@@ -73,3 +73,10 @@ CREATE TABLE IF NOT EXISTS `shop_product`(
     PRIMARY KEY(`productid`),
     KEY shop_product_cateid(`cateid`)
 )ENGINE = INNODB DEFAULT CHARSET = utf8;
+
+--为商品表添加两个字段--
+ALTER TABLE `shop_product`
+-- 商品是否热销 --
+ADD `ison` ENUM('0','1') NOT NULL DEFAULT '0' AFTER `ishot`,
+-- 商品是否上下架 --
+ADD `istui` ENUM('0','1') NOT NULL DEFAULT '0' AFTER `ison`;

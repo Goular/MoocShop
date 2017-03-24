@@ -32,9 +32,9 @@
                         <th class="span2 sortable">
                             <span class="line"></span>促销价
                         </th>
-<!--                        <th class="span2 sortable">-->
-<!--                            <span class="line"></span>是否上架-->
-<!--                        </th>-->
+                        <th class="span2 sortable">
+                            <span class="line"></span>是否上架
+                        </th>
 <!--                        <th class="span2 sortable">-->
 <!--                            <span class="line"></span>是否推荐-->
 <!--                        </th>-->
@@ -69,10 +69,10 @@
                             <td>
                                 <?php echo $product->saleprice; ?>
                             </td>
-<!--                            <td>-->
-<!--                                --><?php //$on = ['下架', '上架'] ?>
-<!--                                --><?php //echo $on[$product->ison]; ?>
-<!--                            </td>-->
+                            <td>
+                                <?php $on = ['下架', '上架'] ?>
+                                <?php echo $on[$product->ison]; ?>
+                            </td>
 <!--                            <td>-->
 <!--                                --><?php //$on = ['不推荐', '推荐'] ?>
 <!--                                --><?php //echo $on[$product->istui]; ?>
