@@ -6,7 +6,7 @@
                 <h3>商品列表</h3>
 
                 <div class="span10 pull-right">
-                    <a href="/index.php?r=admin%2Fproduct%2Fadd" class="btn-flat success pull-right">
+                    <a href="<?php echo \yii\helpers\Url::to(['product/add'])?>" class="btn-flat success pull-right">
                         <span>&#43;</span>添加新商品</a></div>
             </div>
             <!-- Users table -->

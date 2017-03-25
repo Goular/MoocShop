@@ -168,13 +168,12 @@ class ProductController extends \yii\web\Controller
         $auth = new Auth(\Yii::$app->params['qiniu']['accessKey'], \Yii::$app->params['qiniu']['secretKey']);
         // 要上传的空间
         $bucket = \Yii::$app->params['qiniu']['bucket'];
-        // 生成上传 Token
-        $token = $auth->uploadToken($bucket);
         // 初始化 UploadManager 对象并进行文件的上传
         $bucketMgr = new BucketManager($auth);
         $err = $bucketMgr->delete($bucket, $key);
         if ($err !== null) {
-        } else {}
+        } else {
+        }
         $pics = json_decode($model->pics, true);
         unset($pics[$key]);
         Product::updateAll(['pics' => json_encode($pics)], 'productid = :pid', [':pid' => $productId]);
@@ -185,14 +184,30 @@ class ProductController extends \yii\web\Controller
     public function actionDel()
     {
         $productId = \Yii::$app->request->get("productid");
-        $model = Product::find()->where('productid = :id', [':pid' => $productId])->one();
+        $model = Product::find()->where('productid = :pid', [':pid' => $productId])->one();
         //basename() 函数返回路径中的文件名部分。
         $key = basename($model->cover);
-        //七牛删除图片
-
+        //七牛移除代码
+        // 构建鉴权对象
+        $auth = new Auth(\Yii::$app->params['qiniu']['accessKey'], \Yii::$app->params['qiniu']['secretKey']);
+        // 要上传的空间
+        $bucket = \Yii::$app->params['qiniu']['bucket'];
+        // 初始化 UploadManager 对象并进行文件的上传
+        $bucketMgr = new BucketManager($auth);
+        //删除cover
+        $cover = $model->cover;
+        $err = $bucketMgr->delete($bucket, basename($cover));
+        if ($err !== null) {
+        } else {}
+        $pics = json_decode($model->pics, true);
+        foreach ($pics as $key => $file) {
+            $err = $bucketMgr->delete($bucket, $key);
+            if ($err !== null) {
+            } else {}
+        }
         //删除商品的记录
         Product::deleteAll('productid = :pid', [':pid' => $productId]);
-        return $this->redirect(['product/list']);
+        return $this->redirect(['product/products']);
     }
 
     //商品上架操作
