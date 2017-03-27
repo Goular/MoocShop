@@ -35,7 +35,7 @@ class ProductController extends \yii\web\Controller
     public function actionDetail()
     {
         $productid = \Yii::$app->request->get("productid");
-        $product = Product::find()->where('productid = :id', [':id' => $productid])->asArray()->all();
+        $product = Product::find()->where('productid = :id', [':id' => $productid])->asArray()->one();
         $data['all'] = Product::find()->where("ison = '1'")->orderBy('createtime desc')->limit(7)->all();
         return $this->render('detail', ['product' => $product, 'data' => $data]);
     }
