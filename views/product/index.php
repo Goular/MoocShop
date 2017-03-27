@@ -103,7 +103,7 @@
             <section id="recommended-products" class="carousel-holder hover small">
 
                 <div class="title-nav">
-                    <h2 class="inverse">推荐商品</h2>
+                    <h2 class="inverse">热卖商品</h2>
 
                     <div class="nav-holder">
                         <a href="#prev" data-target="#owl-recommended-products"
