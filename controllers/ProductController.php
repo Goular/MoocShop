@@ -23,9 +23,12 @@ class ProductController extends \yii\web\Controller
         $pager = new Pagination(['totalCount' => $count, 'pageSize' => $pageSize]);
         $all = $model->offset($pager->offset)->limit($pager->limit)->asArray()->all();
 
-        $tui = $model->where($where. " and istui = '1'", $params)->orderBy('createtime desc')->limit(5)->asArray()->all();
-        $hot = $model->where($where. " and ishot = '1'", $params)->orderBy('createtime desc')->limit(5)->asArray()->all();
-        $sale = $model->where($where. " and issale = '1'", $params)->orderBy('createtime desc')->limit(5)->asArray()->all();
+        //推荐商品
+        $tui = $model->where($where . " and istui = '1'", $params)->orderBy('createtime desc')->limit(5)->asArray()->all();
+        //热卖商品
+        $hot = $model->where($where . " and ishot = '1'", $params)->orderBy('createtime desc')->limit(5)->asArray()->all();
+        //特价商品
+        $sale = $model->where($where . " and issale = '1'", $params)->orderBy('createtime desc')->limit(5)->asArray()->all();
         return $this->render('index', ['sale' => $sale, 'tui' => $tui, 'hot' => $hot, 'all' => $all, 'pager' => $pager, 'count' => $count]);
     }
 

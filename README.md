@@ -601,3 +601,16 @@
     在页面我们调用相关的的obj参数时，我们需要做的内容时，不能直接像普通使用页面传递的内容的那样使用$obj来调用，
     而是应该在页面的php文件中使用$this->param['obj']
 </pre>
+
+### 如何查看拼接好的原生的sql语句
+<pre>
+    yii2如何输出具体的查询的sql语句：
+    
+    $query = User::find() ->where(['id'=>[1,2,3,4]) ->select(['username'])
+    
+    // 输出SQL语句
+    
+    $commandQuery = clone $query;
+    
+    echo $commandQuery->createCommand()->getRawSql(); $users = $query->all();
+</pre>
