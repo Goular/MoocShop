@@ -586,3 +586,18 @@
 
     4.以上配置完毕后，web/index.php?r=admin-user/update&id=1就可以使用path化的路由去访问，变成web/admin-user/update/1.html，当然原来的访问方式依然有效
 </pre>
+
+### Controller 必须每个类在创建的时候都会执行的方法
+<pre>
+    public function init();//这是一个类的前置方法
+</pre>
+
+### 使用Controller的init方法来进行所有控制类的基类继承，这样做权限管理会容易做
+
+
+### 首页目录的显示
+<pre>
+    值得注意的是，使用Controller的基类方法init()中添加参数时使用$this->param['obj']的时候，
+    在页面我们调用相关的的obj参数时，我们需要做的内容时，不能直接像普通使用页面传递的内容的那样使用$obj来调用，
+    而是应该在页面的php文件中使用$this->param['obj']
+</pre>
