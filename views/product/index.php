@@ -1,3 +1,4 @@
+<!-- ============================================================= HEADER : END ============================================================= -->
 <section id="category-grid">
     <div class="container">
 
@@ -7,7 +8,6 @@
             <!-- ========================================= PRODUCT FILTER ========================================= -->
             <div class="widget">
                 <h1>商品筛选</h1>
-
                 <div class="body bordered">
 
                     <div class="category-filter">
@@ -53,7 +53,7 @@
                                 <div class="col-xs-4 col-sm-4 no-margin">
                                     <a href="<?php echo yii\helpers\Url::to(['product/detail', 'productid' => $pro['productid']]) ?>"
                                        class="thumb-holder">
-                                        <img alt="" src="<?php echo $pro['cover'] ?>"/>
+                                        <img alt="" src="<?php echo $pro['cover'] ?>-CoverSmallProduct"/>
                                     </a>
                                 </div>
                                 <div class="col-xs-8 col-sm-8 no-margin">
@@ -78,7 +78,7 @@
                                 <div class="col-xs-4 col-sm-4 no-margin">
                                     <a href="<?php echo yii\helpers\Url::to(['product/detail', 'productid' => $pro['productid']]) ?>"
                                        class="thumb-holder">
-                                        <img alt="" src="<?php echo $pro['cover'] ?>"/>
+                                        <img alt="" src="<?php echo $pro['cover'] ?>-CoverSmallProduct"/>
                                     </a>
                                 </div>
                                 <div class="col-xs-8 col-sm-8 no-margin">
@@ -103,8 +103,7 @@
             <section id="recommended-products" class="carousel-holder hover small">
 
                 <div class="title-nav">
-                    <h2 class="inverse">热卖商品</h2>
-
+                    <h2 class="inverse">推荐商品</h2>
                     <div class="nav-holder">
                         <a href="#prev" data-target="#owl-recommended-products"
                            class="slider-prev btn-prev fa fa-angle-left"></a>
@@ -139,29 +138,13 @@
                             </div>
                         </div><!-- /.carousel-item -->
                     <?php endforeach; ?>
-
                 </div><!-- /#recommended-products-carousel .owl-carousel -->
             </section><!-- /.carousel-holder -->
             <section id="gaming">
                 <div class="grid-list-products">
                     <h2 class="section-title">所有商品</h2>
 
-                    <div class="control-bar">
-                        <div id="popularity-sort" class="le-select">
-                            <select data-placeholder="sort by popularity">
-                                <option value="1">1-100 个用户</option>
-                                <option value="2">101-200 个用户</option>
-                                <option value="3">200+ 个用户</option>
-                            </select>
-                        </div>
-
-                        <div id="item-count" class="le-select">
-                            <select>
-                                <option value="1">24个/页</option>
-                                <option value="2">48个/页</option>
-                                <option value="3">32个/页</option>
-                            </select>
-                        </div>
+                    <div class="control-bar" style="height:60px">
 
                         <div class="grid-list-buttons">
                             <ul>
@@ -178,264 +161,68 @@
 
                             <div class="product-grid-holder">
                                 <div class="row no-margin">
+                                    <?php foreach ($all as $pro): ?>
+                                        <div class="col-xs-12 col-sm-4 no-margin product-item-holder hover">
+                                            <div class="product-item">
+                                                <?php if ($pro['ishot']): ?>
+                                                    <div class="ribbon red"><span>HOT</span></div>
+                                                <?php endif; ?>
+                                                <?php if ($pro['issale']): ?>
+                                                    <div class="ribbon green"><span>sale</span></div>
+                                                <?php endif; ?>
+                                                <?php if ($pro['istui']): ?>
+                                                    <div class="ribbon blue"><span>recommond</span></div>
+                                                <?php endif; ?>
 
-                                    <div class="col-xs-12 col-sm-4 no-margin product-item-holder hover">
-                                        <div class="product-item">
-                                            <div class="ribbon red"><span>sale</span></div>
-                                            <div class="image">
-                                                <img alt="" src="assets/images/blank.gif"
-                                                     data-echo="assets/images/products/product-01.jpg"/>
-                                            </div>
-                                            <div class="body">
-                                                <div class="label-discount green">-50% sale</div>
-                                                <div class="title">
-                                                    <a href="single-product.html">VAIO Fit Laptop - Windows 8
-                                                        SVF14322CXW</a>
+                                                <div class="image">
+                                                    <img alt="" src="<?php echo $pro['cover'] ?>-CoverSmallProduct"/>
                                                 </div>
-                                                <div class="brand">sony</div>
-                                            </div>
-                                            <div class="prices">
-                                                <div class="price-prev">￥1399.00</div>
-                                                <div class="price-current pull-right">￥1199.00</div>
-                                            </div>
-                                            <div class="hover-area">
-                                                <div class="add-cart-button">
-                                                    <a href="single-product.html" class="le-button">加入购物车</a>
+                                                <div class="body">
+                                                    <?php if ($pro['issale']): ?>
+                                                        <div class="label-discount green"><?php echo round($pro['saleprice'] / $pro['price'] * 100, 0) ?>
+                                                            % sale
+                                                        </div>
+                                                    <?php endif; ?>
+                                                    <div class="title">
+                                                        <a href="<?php echo yii\helpers\Url::to(['product/detail', 'productid' => $pro['productid']]) ?>"><?php echo $pro['title'] ?></a>
+                                                    </div>
                                                 </div>
+                                                <div class="prices">
+                                                    <?php if ($pro['issale']): ?>
+                                                        <div class="price-prev">￥<?php echo $pro['price'] ?></div>
+                                                        <div class="price-current pull-right">
+                                                            ￥<?php echo $pro['saleprice'] ?></div>
+                                                    <?php else: ?>
+                                                        <div class="price-current pull-right">
+                                                            ￥<?php echo $pro['price'] ?></div>
+                                                    <?php endif; ?>
+                                                </div>
+                                                <div class="hover-area">
+                                                    <div class="add-cart-button">
+                                                        <a href="<?php echo yii\helpers\Url::to(['cart/add', 'productid' => $pro['productid']]) ?>"
+                                                           class="le-button">加入购物车</a>
+                                                    </div>
 
-                                            </div>
-                                        </div><!-- /.product-item -->
-                                    </div><!-- /.product-item-holder -->
-
-                                    <div class="col-xs-12 col-sm-4 no-margin product-item-holder hover">
-                                        <div class="product-item">
-                                            <div class="ribbon blue"><span>new!</span></div>
-                                            <div class="image">
-                                                <img alt="" src="assets/images/blank.gif"
-                                                     data-echo="assets/images/products/product-02.jpg"/>
-                                            </div>
-                                            <div class="body">
-                                                <div class="label-discount clear"></div>
-                                                <div class="title">
-                                                    <a href="single-product.html">White lumia 9001</a>
                                                 </div>
-                                                <div class="brand">nokia</div>
-                                            </div>
-                                            <div class="prices">
-                                                <div class="price-prev">￥1399.00</div>
-                                                <div class="price-current pull-right">￥1199.00</div>
-                                            </div>
-                                            <div class="hover-area">
-                                                <div class="add-cart-button">
-                                                    <a href="single-product.html" class="le-button">加入购物车</a>
-                                                </div>
-                                            </div>
-                                        </div><!-- /.product-item -->
-                                    </div><!-- /.product-item-holder -->
-
-                                    <div class="col-xs-12 col-sm-4 no-margin product-item-holder hover">
-                                        <div class="product-item">
-                                            <div class="image">
-                                                <img alt="" src="assets/images/blank.gif"
-                                                     data-echo="assets/images/products/product-03.jpg"/>
-                                            </div>
-                                            <div class="body">
-                                                <div class="label-discount clear"></div>
-                                                <div class="title">
-                                                    <a href="single-product.html">POV Action Cam</a>
-                                                </div>
-                                                <div class="brand">sony</div>
-                                            </div>
-                                            <div class="prices">
-                                                <div class="price-prev">￥1399.00</div>
-                                                <div class="price-current pull-right">￥1199.00</div>
-                                            </div>
-                                            <div class="hover-area">
-                                                <div class="add-cart-button">
-                                                    <a href="single-product.html" class="le-button">加入购物车</a>
-                                                </div>
-                                            </div>
-                                        </div><!-- /.product-item -->
-                                    </div><!-- /.product-item-holder -->
-
-                                    <div class="col-xs-12 col-sm-4 no-margin product-item-holder hover">
-                                        <div class="product-item">
-                                            <div class="ribbon red"><span>sale</span></div>
-                                            <div class="ribbon green"><span>bestseller</span></div>
-                                            <div class="image">
-                                                <img alt="" src="assets/images/blank.gif"
-                                                     data-echo="assets/images/products/product-04.jpg"/>
-                                            </div>
-                                            <div class="body">
-                                                <div class="label-discount clear"></div>
-                                                <div class="title">
-                                                    <a href="single-product.html">Netbook Acer TravelMate
-                                                        B113-E-10072</a>
-                                                </div>
-                                                <div class="brand">acer</div>
-                                            </div>
-                                            <div class="prices">
-                                                <div class="price-prev">￥1399.00</div>
-                                                <div class="price-current pull-right">￥1199.00</div>
-                                            </div>
-                                            <div class="hover-area">
-                                                <div class="add-cart-button">
-                                                    <a href="single-product.html" class="le-button">加入购物车</a>
-                                                </div>
-                                            </div>
-                                        </div><!-- /.product-item -->
-                                    </div><!-- /.product-item-holder -->
-
-                                    <div class="col-xs-12 col-sm-4 no-margin product-item-holder hover">
-                                        <div class="product-item">
-                                            <div class="ribbon red"><span>sale</span></div>
-                                            <div class="image">
-                                                <img alt="" src="assets/images/blank.gif"
-                                                     data-echo="assets/images/products/product-01.jpg"/>
-                                            </div>
-                                            <div class="body">
-                                                <div class="label-discount green">-50% sale</div>
-                                                <div class="title">
-                                                    <a href="single-product.html">VAIO Fit Laptop - Windows 8
-                                                        SVF14322CXW</a>
-                                                </div>
-                                                <div class="brand">sony</div>
-                                            </div>
-                                            <div class="prices">
-                                                <div class="price-prev">￥1399.00</div>
-                                                <div class="price-current pull-right">￥1199.00</div>
-                                            </div>
-                                            <div class="hover-area">
-                                                <div class="add-cart-button">
-                                                    <a href="single-product.html" class="le-button">加入购物车</a>
-                                                </div>
-                                            </div>
-                                        </div><!-- /.product-item -->
-                                    </div><!-- /.product-item-holder -->
-
-                                    <div class="col-xs-12 col-sm-4 no-margin product-item-holder hover">
-                                        <div class="product-item">
-                                            <div class="ribbon blue"><span>new!</span></div>
-                                            <div class="image">
-                                                <img alt="" src="assets/images/blank.gif"
-                                                     data-echo="assets/images/products/product-02.jpg"/>
-                                            </div>
-                                            <div class="body">
-                                                <div class="label-discount clear"></div>
-                                                <div class="title">
-                                                    <a href="single-product.html">White lumia 9001</a>
-                                                </div>
-                                                <div class="brand">nokia</div>
-                                            </div>
-                                            <div class="prices">
-                                                <div class="price-prev">￥1399.00</div>
-                                                <div class="price-current pull-right">￥1199.00</div>
-                                            </div>
-                                            <div class="hover-area">
-                                                <div class="add-cart-button">
-                                                    <a href="single-product.html" class="le-button">加入购物车</a>
-                                                </div>
-                                            </div>
-                                        </div><!-- /.product-item -->
-                                    </div><!-- /.product-item-holder -->
-
-                                    <div class="col-xs-12 col-sm-4 no-margin product-item-holder hover">
-                                        <div class="product-item">
-                                            <div class="image">
-                                                <img alt="" src="assets/images/blank.gif"
-                                                     data-echo="assets/images/products/product-03.jpg"/>
-                                            </div>
-                                            <div class="body">
-                                                <div class="label-discount clear"></div>
-                                                <div class="title">
-                                                    <a href="single-product.html">POV Action Cam</a>
-                                                </div>
-                                                <div class="brand">sony</div>
-                                            </div>
-                                            <div class="prices">
-                                                <div class="price-prev">￥1399.00</div>
-                                                <div class="price-current pull-right">￥1199.00</div>
-                                            </div>
-                                            <div class="hover-area">
-                                                <div class="add-cart-button">
-                                                    <a href="single-product.html" class="le-button">加入购物车</a>
-                                                </div>
-                                            </div>
-                                        </div><!-- /.product-item -->
-                                    </div><!-- /.product-item-holder -->
-
-                                    <div class="col-xs-12 col-sm-4 no-margin product-item-holder hover">
-                                        <div class="product-item">
-                                            <div class="ribbon red"><span>sale</span></div>
-                                            <div class="ribbon green"><span>bestseller</span></div>
-                                            <div class="image">
-                                                <img alt="" src="assets/images/blank.gif"
-                                                     data-echo="assets/images/products/product-04.jpg"/>
-                                            </div>
-                                            <div class="body">
-                                                <div class="label-discount clear"></div>
-                                                <div class="title">
-                                                    <a href="single-product.html">Netbook Acer TravelMate
-                                                        B113-E-10072</a>
-                                                </div>
-                                                <div class="brand">acer</div>
-                                            </div>
-                                            <div class="prices">
-                                                <div class="price-prev">￥1399.00</div>
-                                                <div class="price-current pull-right">￥1199.00</div>
-                                            </div>
-                                            <div class="hover-area">
-                                                <div class="add-cart-button">
-                                                    <a href="single-product.html" class="le-button">加入购物车</a>
-                                                </div>
-                                            </div>
-                                        </div><!-- /.product-item -->
-                                    </div><!-- /.product-item-holder -->
-
-                                    <div class="col-xs-12 col-sm-4 no-margin product-item-holder hover">
-                                        <div class="product-item">
-                                            <div class="image">
-                                                <img alt="" src="assets/images/blank.gif"
-                                                     data-echo="assets/images/products/product-03.jpg"/>
-                                            </div>
-                                            <div class="body">
-                                                <div class="label-discount clear"></div>
-                                                <div class="title">
-                                                    <a href="single-product.html">POV Action Cam</a>
-                                                </div>
-                                                <div class="brand">sony</div>
-                                            </div>
-                                            <div class="prices">
-                                                <div class="price-prev">￥1399.00</div>
-                                                <div class="price-current pull-right">￥1199.00</div>
-                                            </div>
-                                            <div class="hover-area">
-                                                <div class="add-cart-button">
-                                                    <a href="single-product.html" class="le-button">加入购物车</a>
-                                                </div>
-                                            </div>
-                                        </div><!-- /.product-item -->
-                                    </div><!-- /.product-item-holder -->
-
+                                            </div><!-- /.product-item -->
+                                        </div><!-- /.product-item-holder -->
+                                    <?php endforeach; ?>
                                 </div><!-- /.row -->
                             </div><!-- /.product-grid-holder -->
 
                             <div class="pagination-holder">
                                 <div class="row">
-
                                     <div class="col-xs-12 col-sm-6 text-left">
-                                        <ul class="pagination ">
-                                            <li class="current"><a href="#">1</a></li>
-                                            <li><a href="#">2</a></li>
-                                            <li><a href="#">3</a></li>
-                                            <li><a href="#">4</a></li>
-                                            <li><a href="#">next</a></li>
-                                        </ul>
+                                        <?php echo yii\widgets\LinkPager::widget([
+                                            'pagination' => $pager,
+                                            'prevPageLabel' => '&#8249;',
+                                            'nextPageLabel' => '&#8250;',
+                                        ]); ?>
                                     </div>
 
                                     <div class="col-xs-12 col-sm-6">
                                         <div class="result-counter">
-                                            Showing <span>1-9</span> of <span>11</span> results
+                                            Showing <span>1-9</span> of <span><?php echo $count ?></span> results
                                         </div>
                                     </div>
 
@@ -445,195 +232,58 @@
 
                         <div id="list-view" class="products-grid fade tab-pane ">
                             <div class="products-list">
-
-                                <div class="product-item product-item-holder">
-                                    <div class="ribbon red"><span>sale</span></div>
-                                    <div class="ribbon blue"><span>new!</span></div>
-                                    <div class="row">
-                                        <div class="no-margin col-xs-12 col-sm-4 image-holder">
-                                            <div class="image">
-                                                <img alt="" src="assets/images/blank.gif"
-                                                     data-echo="assets/images/products/product-01.jpg"/>
-                                            </div>
-                                        </div><!-- /.image-holder -->
-                                        <div class="no-margin col-xs-12 col-sm-5 body-holder">
-                                            <div class="body">
-                                                <div class="label-discount green">-50% sale</div>
-                                                <div class="title">
-                                                    <a href="single-product.html">VAIO Fit Laptop - Windows 8
-                                                        SVF14322CXW</a>
+                                <?php foreach ($all as $pro): ?>
+                                    <div class="product-item product-item-holder">
+                                        <?php if ($pro['ishot']): ?>
+                                            <div class="ribbon red"><span>HOT</span></div>
+                                        <?php endif; ?>
+                                        <?php if ($pro['issale']): ?>
+                                            <div class="ribbon green"><span>sale</span></div>
+                                        <?php endif; ?>
+                                        <?php if ($pro['istui']): ?>
+                                            <div class="ribbon blue"><span>recommond</span></div>
+                                        <?php endif; ?>
+                                        <div class="row">
+                                            <div class="no-margin col-xs-12 col-sm-4 image-holder">
+                                                <div class="image">
+                                                    <img alt="" src="<?php echo $pro['cover'] ?>-CoverSmallProduct"/>
                                                 </div>
-                                                <div class="brand">sony</div>
-                                                <div class="excerpt">
-                                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut
-                                                        lobortis euismod erat sit amet porta. Etiam venenatis ac diam ac
-                                                        tristique. Morbi accumsan consectetur odio ut tincidunt.</p>
-                                                </div>
-                                            </div>
-                                        </div><!-- /.body-holder -->
-                                        <div class="no-margin col-xs-12 col-sm-3 price-area">
-                                            <div class="right-clmn">
-                                                <div class="price-current">￥1199.00</div>
-                                                <div class="price-prev">￥1399.00</div>
-                                                <div class="availability"><label>存货:</label><span
-                                                            class="available">  现货</span></div>
-                                                <a class="le-button" href="#">加入购物车</a>
-                                            </div>
-                                        </div><!-- /.price-area -->
-                                    </div><!-- /.row -->
-                                </div><!-- /.product-item -->
+                                            </div><!-- /.image-holder -->
+                                            <div class="no-margin col-xs-12 col-sm-5 body-holder">
+                                                <div class="body">
 
-
-                                <div class="product-item product-item-holder">
-                                    <div class="ribbon green"><span>bestseller</span></div>
-                                    <div class="row">
-                                        <div class="no-margin col-xs-12 col-sm-4 image-holder">
-                                            <div class="image">
-                                                <img alt="" src="assets/images/blank.gif"
-                                                     data-echo="assets/images/products/product-02.jpg"/>
-                                            </div>
-                                        </div><!-- /.image-holder -->
-                                        <div class="no-margin col-xs-12 col-sm-5 body-holder">
-                                            <div class="body">
-                                                <div class="label-discount clear"></div>
-                                                <div class="title">
-                                                    <a href="single-product.html">VAIO Fit Laptop - Windows 8
-                                                        SVF14322CXW</a>
-                                                </div>
-                                                <div class="brand">sony</div>
-                                                <div class="excerpt">
-                                                    <div class="star-holder">
-                                                        <div class="star" data-score="4"></div>
+                                                    <?php if ($pro['issale']): ?>
+                                                        <div class="label-discount green"><?php echo round($pro['saleprice'] / $pro['price'] * 100, 0) ?>
+                                                            % sale
+                                                        </div>
+                                                    <?php endif; ?>
+                                                    <div class="title">
+                                                        <a href="<?php echo yii\helpers\Url::to(['product/detail', 'productid' => $pro['productid']]) ?>"><?php echo $pro['title'] ?></a>
                                                     </div>
-                                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut
-                                                        lobortis euismod erat sit amet porta. Etiam venenatis ac diam ac
-                                                        tristique. Morbi accumsan consectetur odio ut tincidunt.</p>
-                                                </div>
-                                            </div>
-                                        </div><!-- /.body-holder -->
-                                        <div class="no-margin col-xs-12 col-sm-3 price-area">
-                                            <div class="right-clmn">
-                                                <div class="price-current">￥1199.00</div>
-                                                <div class="price-prev">￥1399.00</div>
-                                                <div class="availability"><label>存货:</label><span class="not-available">无货</span>
-                                                </div>
-                                                <a class="le-button disabled" href="#">加入购物车</a>
-                                            </div>
-                                        </div><!-- /.price-area -->
-                                    </div><!-- /.row -->
-                                </div><!-- /.product-item -->
-
-
-                                <div class="product-item product-item-holder">
-                                    <div class="ribbon red"><span>sell</span></div>
-                                    <div class="row">
-                                        <div class="no-margin col-xs-12 col-sm-4 image-holder">
-                                            <div class="image">
-                                                <img alt="" src="assets/images/blank.gif"
-                                                     data-echo="assets/images/products/product-03.jpg"/>
-                                            </div>
-                                        </div><!-- /.image-holder -->
-                                        <div class="no-margin col-xs-12 col-sm-5 body-holder">
-                                            <div class="body">
-                                                <div class="label-discount clear"></div>
-                                                <div class="title">
-                                                    <a href="single-product.html">VAIO Fit Laptop - Windows 8
-                                                        SVF14322CXW</a>
-                                                </div>
-                                                <div class="brand">sony</div>
-                                                <div class="excerpt">
-                                                    <div class="star-holder">
-                                                        <div class="star" data-score="2"></div>
+                                                    <div class="excerpt">
+                                                        <p><?php echo mb_substr($pro['descr'], 0, 250, 'utf-8') ?></p>
                                                     </div>
-                                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut
-                                                        lobortis euismod erat sit amet porta. Etiam venenatis ac diam ac
-                                                        tristique. Morbi accumsan consectetur odio ut tincidunt. </p>
                                                 </div>
-                                            </div>
-                                        </div><!-- /.body-holder -->
-                                        <div class="no-margin col-xs-12 col-sm-3 price-area">
-                                            <div class="right-clmn">
-                                                <div class="price-current">￥1199.00</div>
-                                                <div class="price-prev">￥1399.00</div>
-                                                <div class="availability"><label>存货:</label><span
-                                                            class="available">现货</span></div>
-                                                <a class="le-button" href="#">加入购物车</a>
-                                            </div>
-                                        </div><!-- /.price-area -->
-                                    </div><!-- /.row -->
-                                </div><!-- /.product-item -->
-
-                                <div class="product-item product-item-holder">
-                                    <div class="row">
-                                        <div class="no-margin col-xs-12 col-sm-4 image-holder">
-                                            <div class="image">
-                                                <img alt="" src="assets/images/blank.gif"
-                                                     data-echo="assets/images/products/product-04.jpg"/>
-                                            </div>
-                                        </div><!-- /.image-holder -->
-                                        <div class="no-margin col-xs-12 col-sm-5 body-holder">
-                                            <div class="body">
-                                                <div class="label-discount green">-50% sale</div>
-                                                <div class="title">
-                                                    <a href="single-product.html">VAIO Fit Laptop - Windows 8
-                                                        SVF14322CXW</a>
+                                            </div><!-- /.body-holder -->
+                                            <div class="no-margin col-xs-12 col-sm-3 price-area">
+                                                <div class="right-clmn">
+                                                    <?php if ($pro['issale']): ?>
+                                                        <div class="price-current">
+                                                            ￥<?php echo $pro['saleprice'] ?></div>
+                                                        <div class="price-prev">￥<?php echo $pro['price'] ?></div>
+                                                    <?php else: ?>
+                                                        <div class="price-current">￥<?php echo $pro['price'] ?></div>
+                                                    <?php endif; ?>
+                                                    <div class="availability"><label>库存:</label><span
+                                                                class="available">  <?php echo $pro['num'] ?></span>
+                                                    </div>
+                                                    <a class="le-button"
+                                                       href="<?php echo yii\helpers\Url::to(['cart/add', 'productid' => $pro['productid']]) ?>">加入购物车</a>
                                                 </div>
-                                                <div class="brand">sony</div>
-                                                <div class="excerpt">
-                                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut
-                                                        lobortis euismod erat sit amet porta. Etiam venenatis ac diam ac
-                                                        tristique. Morbi accumsan consectetur odio ut tincidunt. </p>
-                                                </div>
-                                            </div>
-                                        </div><!-- /.body-holder -->
-                                        <div class="no-margin col-xs-12 col-sm-3 price-area">
-                                            <div class="right-clmn">
-                                                <div class="price-current">￥1199.00</div>
-                                                <div class="price-prev">￥1399.00</div>
-                                                <div class="availability"><label>存货:</label><span
-                                                            class="available">  现货</span></div>
-                                                <a class="le-button" href="#">加入购物车</a>
-                                            </div>
-                                        </div><!-- /.price-area -->
-                                    </div><!-- /.row -->
-                                </div><!-- /.product-item -->
-
-                                <div class="product-item product-item-holder">
-                                    <div class="ribbon green"><span>bestseller</span></div>
-                                    <div class="row">
-                                        <div class="no-margin col-xs-12 col-sm-4 image-holder">
-                                            <div class="image">
-                                                <img alt="" src="assets/images/blank.gif"
-                                                     data-echo="assets/images/products/product-05.jpg"/>
-                                            </div>
-                                        </div><!-- /.image-holder -->
-                                        <div class="no-margin col-xs-12 col-sm-5 body-holder">
-                                            <div class="body">
-                                                <div class="label-discount clear"></div>
-                                                <div class="title">
-                                                    <a href="single-product.html">VAIO Fit Laptop - Windows 8
-                                                        SVF14322CXW</a>
-                                                </div>
-                                                <div class="brand">sony</div>
-                                                <div class="excerpt">
-                                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut
-                                                        lobortis euismod erat sit amet porta. Etiam venenatis ac diam ac
-                                                        tristique. Morbi accumsan consectetur odio ut tincidunt.</p>
-                                                </div>
-                                            </div>
-                                        </div><!-- /.body-holder -->
-                                        <div class="no-margin col-xs-12 col-sm-3 price-area">
-                                            <div class="right-clmn">
-                                                <div class="price-current">￥1199.00</div>
-                                                <div class="price-prev">￥1399.00</div>
-                                                <div class="availability"><label>存货:</label><span
-                                                            class="available">  现货</span></div>
-                                                <a class="le-button" href="#">加入购物车</a>
-                                            </div>
-                                        </div><!-- /.price-area -->
-                                    </div><!-- /.row -->
-                                </div><!-- /.product-item -->
-
+                                            </div><!-- /.price-area -->
+                                        </div><!-- /.row -->
+                                    </div><!-- /.product-item -->
+                                <?php endforeach; ?>
                             </div><!-- /.products-list -->
 
                             <div class="pagination-holder">
@@ -664,4 +314,4 @@
         </div><!-- /.col -->
         <!-- ========================================= CONTENT : END ========================================= -->
     </div><!-- /.container -->
-</section><!-- /#category-grid -->
+</section><!-- /#category-grid -->        <!-- ============================================================= FOOTER ============================================================= -->
