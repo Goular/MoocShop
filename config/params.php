@@ -6,7 +6,7 @@ return [
         'manage' => 4,
         'user' => 4,
         'product' => 10,
-        'frontproduct' => 9,
+        'frontproduct' => 3,
         'order' => 10,
     ],
     'defaultValue' => [
