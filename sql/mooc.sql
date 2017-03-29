@@ -80,3 +80,17 @@ ALTER TABLE `shop_product`
 ADD `ison` ENUM('0','1') NOT NULL DEFAULT '0' AFTER `ishot`,
 -- 商品是否上下架 --
 ADD `istui` ENUM('0','1') NOT NULL DEFAULT '0' AFTER `ison`;
+
+-- 购物车的内容 --
+DROP TABLE IF EXISTS `shop_cart`;
+CREATE TABLE IF NOT EXISTS `shop_cart`(
+    `cartid` bigint unsigned not  null auto_increment,
+    `productid` bigint unsigned not null default '0',
+    `productnum` int(10) unsigned null default '0',
+    `price` decimal(10,2) not null default '0.00',
+    `userid` bigint unsigned not null default '0',
+    `createtime` int(10) unsigned not null default '0',
+    primary key(`cartid`),
+    key shop_cart_productid (`productid`),
+    key shop_cart_userid(`userid`)
+)ENGINE = INNODB DEFAULT CHARSET = utf8;
