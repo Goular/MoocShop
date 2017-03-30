@@ -31,7 +31,7 @@ use yii\bootstrap\ActiveForm;
                         <?php $i = 2 ?>
                         <?php foreach((array)json_decode($product['pics'], true) as $k=>$pic): ?>
                             <a class="horizontal-thumb" data-target="#owl-single-product" data-slide="<?php echo $i-1 ?>" href="#slide<?php echo $i ?>">
-                                <img width="67" alt="" src="<?php echo $pic ?>-CoverSmallProduct"/>
+                                <img width="67" alt="" src="<?php echo $pic ?>"/>
                             </a>
                             <?php $i++; ?>
                         <?php endforeach; ?>
@@ -133,7 +133,7 @@ use yii\bootstrap\ActiveForm;
                             <?php endif; ?>
 
                             <div class="image">
-                                <img alt="<?php echo $pro->title ?>" src="<?php echo $pro->cover ?>-CoverSmallProduct" data-echo="<?php echo $pro->cover ?>-covermiddle" />
+                                <img alt="<?php echo $pro->title ?>" src="<?php echo $pro->cover ?>" data-echo="<?php echo $pro->cover ?>" />
                             </div>
                             <div class="body">
                                 <div class="title">
