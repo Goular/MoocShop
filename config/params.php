@@ -17,5 +17,15 @@ return [
         'secretKey' => 'iVbVVOq5YMSHy6dhzMxZ0OODipV8P-18LZgXJ8dW',
         'bucket' => 'goular',
         'domain' => 'http://on5lx46o2.bkt.clouddn.com/'
+    ],
+    'express' => [
+        1 => '中通快递',
+        2 => '顺丰快递',
+        3 => '包邮'
+    ],
+    'expressPrice' => [
+        1 => 15,
+        2 => 20,
+        3 => 0
     ]
 ];
