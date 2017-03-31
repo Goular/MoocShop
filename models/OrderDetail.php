@@ -41,12 +41,21 @@ class OrderDetail extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'detailid' => 'Detailid',
-            'productid' => 'Productid',
-            'price' => 'Price',
-            'productnum' => 'Productnum',
-            'orderid' => 'Orderid',
-            'createtime' => 'Createtime',
+            'detailid' => '订单详情ID',
+            'productid' => '商品ID',
+            'price' => '价格',
+            'productnum' => '商品数量',
+            'orderid' => '订单ID',
+            'createtime' => '创建时间',
         ];
+    }
+
+    //添加订单
+    public function add($data)
+    {
+        if ($this->load($data) && $this->save()) {
+            return true;
+        }
+        return false;
     }
 }

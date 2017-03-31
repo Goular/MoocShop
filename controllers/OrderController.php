@@ -2,7 +2,10 @@
 
 namespace app\controllers;
 
+use app\models\Cart;
 use app\models\Order;
+use app\models\OrderDetail;
+use app\models\Product;
 use app\models\User;
 use yii\base\Exception;
 
@@ -25,29 +28,42 @@ class OrderController extends \yii\web\Controller
      */
     public function actionAdd()
     {
-        //判断是否登录
         if (\Yii::$app->session['isLogin'] != 1) {
-            //没有登录的话返回登录页面
             return $this->redirect(['member/auth']);
         }
-        //由于添加的时候会影响多个表,所以需要使用事务
         $transaction = \Yii::$app->db->beginTransaction();
         try {
             if (\Yii::$app->request->isPost) {
                 $post = \Yii::$app->request->post();
-                $odermodel = new Order();
-                $odermodel->scenario = "add";//设定场景,在校验的时候可以进行区别
-                $usermodel = User::find()->where('username = :name or usermail = :email', [":name" => \Yii::$app->session['loginname'], ":email" => \Yii::$app->session['loginname']])->one();
+                $ordermodel = new Order;
+                $ordermodel->scenario = 'add';
+                $usermodel = User::find()->where('username = :name or useremail = :email', [':name' => \Yii::$app->session['loginname'], ':email' => \Yii::$app->session['loginname']])->one();
                 if (!$usermodel) {
                     throw new \Exception();
                 }
-                $orderid = $odermodel->getPrimaryKey();//获取主键
+                $userid = $usermodel->userid;
+                $ordermodel->userid = $userid;
+                $ordermodel->status = Order::CREATEORDER;
+                $ordermodel->createtime = time();
+                if (!$ordermodel->save()) {
+                    throw new \Exception();
+                }
+                $orderid = $ordermodel->getPrimaryKey();
                 foreach ($post['OrderDetail'] as $product) {
-
+                    $model = new OrderDetail;
+                    $product['orderid'] = $orderid;
+                    $product['createtime'] = time();
+                    $data['OrderDetail'] = $product;
+                    if (!$model->add($data)) {
+                        throw new \Exception();
+                    }
+                    Cart::deleteAll('productid = :pid', [':pid' => $product['productid']]);
+                    Product::updateAllCounters(['num' => -$product['productnum']], 'productid = :pid', [':pid' => $product['productid']]);
                 }
             }
-        } catch (Exception $e) {
-            $transaction->rollBack();
+            $transaction->commit();
+        } catch (\Exception $e) {
+            $transaction->rollback();
             return $this->redirect(['cart/index']);
         }
         return $this->redirect(['order/check', 'orderid' => $orderid]);

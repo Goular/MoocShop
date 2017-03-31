@@ -19,6 +19,27 @@ use Yii;
  */
 class Order extends \yii\db\ActiveRecord
 {
+    const CREATEORDER = 0;
+    const CHECKORDER = 100;
+    const PAYFAILED = 201;
+    const PAYSUCCESS = 202;
+    const SENDED = 220;
+    const RECEIVED = 260;
+
+    public static $status = [
+        self::CREATEORDER => '订单初始化',
+        self::CHECKORDER => '待支付',
+        self::PAYFAILED => '支付失败',
+        self::PAYSUCCESS => '等待发货',
+        self::SENDED => '已发货',
+        self::RECEIVED => '订单完成',
+    ];
+
+    public $products;
+    public $zhstatus;
+    public $username;
+    public $address;
+
     /**
      * @inheritdoc
      */
@@ -33,10 +54,10 @@ class Order extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['userid', 'addressid', 'status', 'expressid', 'createtime'], 'integer'],
-            [['amount'], 'number'],
-            [['updatetime'], 'safe'],
-            [['expressno'], 'string', 'max' => 50],
+            [['userid', 'status'], 'required', 'on' => ['add']],
+            [['addressid', 'expressid', 'amount', 'status'], 'required', 'on' => ['update']],
+            ['expressno', 'required', 'message' => '请输入快递单号', 'on' => 'send'],
+            ['createtime', 'safe', 'on' => ['add']]
         ];
     }
 
@@ -52,7 +73,7 @@ class Order extends \yii\db\ActiveRecord
             'amount' => '总额',
             'status' => '订单状态',
             'expressid' => '有效期',
-            'expressno' => '邮递号码',
+            'expressno' => '快递号码',
             'createtime' => '创建时间',
             'updatetime' => '更新时间',
         ];
