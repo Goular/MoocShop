@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Address;
 use app\models\Cart;
 use app\models\Order;
 use app\models\OrderDetail;
@@ -18,9 +19,34 @@ class OrderController extends \yii\web\Controller
         return $this->render('index');
     }
 
+    /**
+     * 进入订单详情页面
+     */
     public function actionCheck()
     {
-        return $this->render('check');
+        $this->layout = "layout_parent_none";
+        if (\Yii::$app->session['isLogin'] != 1) {
+            return $this->redirect(['member/auth']);
+        }
+        $orderid = \Yii::$app->request->get('orderid');
+        $status = Order::find()->where('orderid = :oid', [':oid' => $orderid])->one()->status;
+        if ($status != Order::CREATEORDER && $status != Order::CHECKORDER) {
+            return $this->redirect(['order/index']);
+        }
+        $loginname = \Yii::$app->session['loginname'];
+        $userid = User::find()->where('username = :name or useremail = :email', [':name' => $loginname, ':email' => $loginname])->one()->userid;
+        $addresses = Address::find()->where('userid = :uid', [':uid' => $userid])->asArray()->all();
+        $details = OrderDetail::find()->where('orderid = :oid', [':oid' => $orderid])->asArray()->all();
+        $data = [];
+        foreach ($details as $detail) {
+            $model = Product::find()->where('productid = :pid', [':pid' => $detail['productid']])->one();
+            $detail['title'] = $model->title;
+            $detail['cover'] = $model->cover;
+            $data[] = $detail;
+        }
+        $express = \Yii::$app->params['express'];
+        $expressPrice = \Yii::$app->params['expressPrice'];
+        return $this->render("check", ['express' => $express, 'expressPrice' => $expressPrice, 'addresses' => $addresses, 'products' => $data]);
     }
 
     /**
