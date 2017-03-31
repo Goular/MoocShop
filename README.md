@@ -614,3 +614,8 @@
     
     echo $commandQuery->createCommand()->getRawSql(); $users = $query->all();
 </pre>
+
+### SQL语句的使用总结
+<pre>
+    "``"符号为字段/索引/函数/存储过程 名称专用,用单引号创建表的字段时会报错
+</pre>
