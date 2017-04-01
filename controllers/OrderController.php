@@ -14,9 +14,19 @@ class OrderController extends \yii\web\Controller
 {
     public $layout = "layout_parent_nav";
 
+    /**
+     * @return string
+     * 前台订单列表的显示
+     */
     public function actionIndex()
     {
-        return $this->render('index');
+        if (\Yii::$app->session['isLogin'] != 1) {
+            return $this->redirect(['member/auth']);
+        }
+        $loginname = \Yii::$app->session['loginname'];
+        $userid = User::find()->where('username = :name or useremail = :email', [':name' => $loginname, 'email' => $loginname])->one()->userid;
+        $orders = Order::getProducts($userid);
+        return $this->render('index', ['order' => $orders]);
     }
 
     /**

@@ -78,4 +78,12 @@ class Order extends \yii\db\ActiveRecord
             'updatetime' => '更新时间',
         ];
     }
+
+    /**
+     * @param $userid
+     * 获取使用产品订单的产品
+     */
+    public static function getProducts($userid)
+    {
+    }
 }
