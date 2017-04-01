@@ -104,7 +104,7 @@ CREATE TABLE IF NOT EXISTS `shop_order`(
     `amount` decimal(10,2) not null default '0.00',
     `status` int unsigned not null default '0',
     `expressid` int unsigned not null default '0',
-    `expressno` varchar(50) not null default '',
+    `expressno` varchar(50) not null default '' comment '邮递的快递单号',
     `createtime` int unsigned not null default '0',
     `updatetime` timestamp not null default current_timestamp on update current_timestamp,
     key shop_order_userid(`userid`),
