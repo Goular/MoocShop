@@ -37,128 +37,67 @@
                     </thead>
                     <tbody>
                     <!-- row -->
-                    <tr class="first">
-                        <td>2</td>
-                        <td>zhangsan</td>
-                        <td>北京市朝阳区某某街道</td>
-                        <td>包邮</td>
-                        <td>0.01</td>
-                        <td>1 x
-                            <a href="/index.php?r=product%2Fdetail&productid=4">长裙</a></td>
-                        <td>
-                            <span class="label label-success">订单完成</span></td>
-                        <td class="align-right">
-                            <a href="/index.php?r=admin%2Forder%2Fdetail&orderid=2">查看</a></td>
-                    </tr>
-                    <tr class="first">
-                        <td>3</td>
-                        <td>zhangsan</td>
-                        <td>北京市朝阳区某某街道</td>
-                        <td>包邮</td>
-                        <td>0.01</td>
-                        <td>1 x
-                            <a href="/index.php?r=product%2Fdetail&productid=4">长裙</a></td>
-                        <td>
-                            <span class="label label-success">订单完成</span></td>
-                        <td class="align-right">
-                            <a href="/index.php?r=admin%2Forder%2Fdetail&orderid=3">查看</a></td>
-                    </tr>
-                    <tr class="first">
-                        <td>4</td>
-                        <td>zhangsan</td>
-                        <td>北京市朝阳区某某街道</td>
-                        <td>顺丰快递</td>
-                        <td>20.01</td>
-                        <td>1 x
-                            <a href="/index.php?r=product%2Fdetail&productid=4">长裙</a></td>
-                        <td>
-                            <span class="label label-info">待支付</span></td>
-                        <td class="align-right">
-                            <a href="/index.php?r=admin%2Forder%2Fdetail&orderid=4">查看</a></td>
-                    </tr>
-                    <tr class="first">
-                        <td>5</td>
-                        <td>zhangsan</td>
-                        <td></td>
-                        <td></td>
-                        <td>0.00</td>
-                        <td>1 x
-                            <a href="/index.php?r=product%2Fdetail&productid=4">长裙</a></td>
-                        <td>
-                            <span class="label label-error">订单初始化</span></td>
-                        <td class="align-right">
-                            <a href="/index.php?r=admin%2Forder%2Fdetail&orderid=5">查看</a></td>
-                    </tr>
-                    <tr class="first">
-                        <td>6</td>
-                        <td>zhangsan</td>
-                        <td>北京市朝阳区某某街道</td>
-                        <td>包邮</td>
-                        <td>0.02</td>
-                        <td>2 x
-                            <a href="/index.php?r=product%2Fdetail&productid=4">长裙</a></td>
-                        <td>
-                            <span class="label label-info">待支付</span></td>
-                        <td class="align-right">
-                            <a href="/index.php?r=admin%2Forder%2Fdetail&orderid=6">查看</a></td>
-                    </tr>
-                    <tr class="first">
-                        <td>7</td>
-                        <td>zhangsan</td>
-                        <td>北京市朝阳区某某街道</td>
-                        <td>包邮</td>
-                        <td>0.01</td>
-                        <td>1 x
-                            <a href="/index.php?r=product%2Fdetail&productid=4">长裙</a></td>
-                        <td>
-                            <span class="label label-info">待支付</span></td>
-                        <td class="align-right">
-                            <a href="/index.php?r=admin%2Forder%2Fdetail&orderid=7">查看</a></td>
-                    </tr>
-                    <tr class="first">
-                        <td>8</td>
-                        <td>zhangsan</td>
-                        <td>北京市朝阳区某某街道</td>
-                        <td>包邮</td>
-                        <td>0.01</td>
-                        <td>1 x
-                            <a href="/index.php?r=product%2Fdetail&productid=4">长裙</a></td>
-                        <td>
-                            <span class="label label-info">待支付</span></td>
-                        <td class="align-right">
-                            <a href="/index.php?r=admin%2Forder%2Fdetail&orderid=8">查看</a></td>
-                    </tr>
-                    <tr class="first">
-                        <td>9</td>
-                        <td>zhangsan</td>
-                        <td>北京市朝阳区某某街道</td>
-                        <td>包邮</td>
-                        <td>0.01</td>
-                        <td>1 x
-                            <a href="/index.php?r=product%2Fdetail&productid=4">长裙</a></td>
-                        <td>
-                            <span class="label label-info">待支付</span></td>
-                        <td class="align-right">
-                            <a href="/index.php?r=admin%2Forder%2Fdetail&orderid=9">查看</a></td>
-                    </tr>
-                    <tr class="first">
-                        <td>10</td>
-                        <td>zhangsan</td>
-                        <td>北京市朝阳区某某街道</td>
-                        <td>包邮</td>
-                        <td>10.01</td>
-                        <td>1 x
-                            <a href="/index.php?r=product%2Fdetail&productid=4">长裙</a>1 x
-                            <a href="/index.php?r=product%2Fdetail&productid=3">黑色长裙</a></td>
-                        <td>
-                            <span class="label label-info">待支付</span></td>
-                        <td class="align-right">
-                            <a href="/index.php?r=admin%2Forder%2Fdetail&orderid=10">查看</a></td>
-                    </tr>
+                    <?php foreach ($orders as $order): ?>
+                        <tr class="first">
+                            <td><?php echo $order->orderid; ?></td>
+                            <td><?php echo $order->username; ?></td>
+                            <td><?php echo $order->address; ?></td>
+                            <td>
+                                <!--     打印订单状态，需要结束param数组的内容      -->
+                                <?php
+                                if (array_key_exists($order->expressid, \Yii::$app->params['express'])) {
+                                    echo \Yii::$app->params['express'][$order->expressid];
+                                }
+                                ?>
+                            </td>
+                            <td><?php echo $order->amount; ?></td>
+                            <td>
+                                <?php foreach ($order->products as $product): ?>
+                                    <!--     回去的是前台，所以需要添加根目录的符号      -->
+                                    <?php echo $product->num; ?> x <a
+                                            href="<?php echo \yii\helpers\Url::to(['/product/detail']) ?>"><?php echo $product->title; ?></a>
+                                <?php endforeach; ?>
+
+                                <?php
+                                if (in_array($order->status, [0])) {
+                                    $info = "error";
+                                }
+                                if (in_array($order->status, [100, 202])) {
+                                    $info = "info";
+                                }
+                                if (in_array($order->status, [201])) {
+                                    $info = "warning";
+                                }
+                                if (in_array($order->status, [220, 260])) {
+                                    $info = "success";
+                                }
+                                ?>
+                            <td>
+
+                                <span class="label label-<?php echo $info ?>">
+                                    <?php echo $order->zhstatus; ?>
+                                </span>
+                            </td>
+                            <td class="align-right">
+                                <?php if ($order->status == \app\models\Order::PAYSUCCESS): ?>
+                                    <a href="<?php echo yii\helpers\Url::to(['order/send', 'orderid' => $order->orderid]) ?>">发货</a>
+                                <?php endif; ?>
+                                <a href="<?php echo yii\helpers\Url::to(['order/detail', 'orderid' => $order->orderid]) ?>">查看</a>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
                     </tbody>
                 </table>
             </div>
-            <div class="pagination pull-right"></div>
+            <div class="pagination pull-right">
+                <?php
+                echo \yii\widgets\LinkPager::widget([
+                    'pagination' => $pager,
+                    'prevPageLabel' => '&#8249;',
+                    'nextPageLabel' => '&#8250;',
+                ]);
+                ?>
+            </div>
             <!-- end users table --></div>
     </div>
 </div>

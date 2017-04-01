@@ -85,5 +85,58 @@ class Order extends \yii\db\ActiveRecord
      */
     public static function getProducts($userid)
     {
+        $orders = self::find()->where('status > 0 and userid = :uid', [':uid' => $userid])->orderBy('createtime desc')->all();
+        foreach ($orders as $order) {
+            $details = OrderDetail::find()->where('orderid = :oid', [':oid' => $order->orderid])->all();
+            $products = [];
+            foreach ($details as $detail) {
+                $product = Product::find()->where('productid = :pid', [':pid' => $detail->productid])->one();
+                if (empty($product)) {
+                    continue;
+                }
+                $product->num = $detail->productnum;
+                $product->price = $detail->price;
+                $product->cate = Category::find()->where('cateid = :cid', [':cid' => $product->cateid])->one()->title;
+                $products[] = $product;
+            }
+            $order->zhstatus = self::$status[$order->status];
+            $order->products = $products;
+        }
+        return $orders;
+    }
+
+    public static function getDetail($orders)
+    {
+        foreach ($orders as $order) {
+            $order = self::getData($order);
+        }
+        return $orders;
+    }
+
+    public static function getData($order)
+    {
+        $details = OrderDetail::find()->where('orderid = :oid', [':oid' => $order->orderid])->all();
+        $products = [];
+        foreach ($details as $detail) {
+            $product = Product::find()->where('productid = :pid', [':pid' => $detail->productid])->one();
+            if (empty($product)) {
+                continue;
+            }
+            $product->num = $detail->productnum;
+            $products[] = $product;
+        }
+        $order->products = $products;
+        $user = User::find()->where('userid = :uid', [':uid' => $order->userid])->one();
+        if (!empty($user)) {
+            $order->username = $user->username;
+        }
+        $order->address = Address::find()->where('addressid = :aid', [':aid' => $order->addressid])->one();
+        if (empty($order->address)) {
+            $order->address = "";
+        } else {
+            $order->address = $order->address->address;
+        }
+        $order->zhstatus = self::$status[$order->status];
+        return $order;
     }
 }
