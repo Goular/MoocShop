@@ -36,4 +36,22 @@ class OrderController extends \yii\web\Controller
         return $this->render('detail', ['order' => $data]);
     }
 
+    /**
+     * 订单发货
+     */
+    public function actionSend()
+    {
+        $orderid = (int)\Yii::$app->request->get('orderid');
+        $model = Order::find()->where('orderid =:oid', [':oid' => $orderid])->one();
+        $model->scenario = "send";
+        if (\Yii::$app->request->isPost) {
+            $post = \Yii::$app->request->post();
+            $model->status = Order::SENDED;
+            if ($model->load($post) && $model->save()) {
+                \Yii::$app->session->setFlash('info', '发货成功');
+            }
+        }
+        return $this->render('send', ['model' => $model]);
+    }
+
 }
