@@ -25,4 +25,15 @@ class OrderController extends \yii\web\Controller
         return $this->render('list', ['pager' => $pager, 'orders' => $data]);
     }
 
+    /**
+     * 读取订单详情的页面
+     */
+    public function actionDetail()
+    {
+        $orderid = (int)\Yii::$app->request->get('orderid');
+        $order = Order::find()->where('orderid = :oid', [':oid' => $orderid])->one();
+        $data = Order::getData($order);
+        return $this->render('detail', ['order' => $data]);
+    }
+
 }
