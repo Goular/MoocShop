@@ -10,7 +10,7 @@ use app\models\Product;
 use app\models\User;
 use yii\base\Exception;
 
-class OrderController extends \yii\web\Controller
+class OrderController extends CommonController
 {
     public $layout = "layout_parent_nav";
 
@@ -24,9 +24,9 @@ class OrderController extends \yii\web\Controller
             return $this->redirect(['member/auth']);
         }
         $loginname = \Yii::$app->session['loginname'];
-        $userid = User::find()->where('username = :name or useremail = :email', [':name' => $loginname, 'email' => $loginname])->one()->userid;
+        $userid = User::find()->where('username = :name or useremail = :email', [':name' => $loginname, ':email' => $loginname])->one()->userid;
         $orders = Order::getProducts($userid);
-        return $this->render('index', ['order' => $orders]);
+        return $this->render("index", ['orders' => $orders]);
     }
 
     /**
