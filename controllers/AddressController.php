@@ -11,7 +11,7 @@ use app\models\User;
  * Class AddressController
  * @package app\controllers
  */
-class AddressController extends \yii\web\Controller
+class AddressController extends CommonController
 {
     /**
      * 添加地址

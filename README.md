@@ -634,3 +634,8 @@
             3 => 0
         ]
 </pre>
+
+### $this->view->params
+<pre>
+    页面如果想获取不是从render传递过来的参数，可以使用$this->view->params['tui']=$tui,这样页面就可以直接使用，该方法的使用一般都是在基类控制方法中会常用，因为基类方法，很少调用$this->render('',[]);
+</pre>

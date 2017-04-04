@@ -4,7 +4,7 @@ namespace app\controllers;
 
 use app\models\User;
 
-class MemberController extends \yii\web\Controller
+class MemberController extends CommonController
 {
     public function actionAuth()
     {

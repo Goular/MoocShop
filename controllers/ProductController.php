@@ -5,7 +5,7 @@ namespace app\controllers;
 use app\models\Product;
 use yii\data\Pagination;
 
-class ProductController extends \yii\web\Controller
+class ProductController extends CommonController
 {
     public $layout = "layout_parent_nav";
 

@@ -7,7 +7,7 @@ use app\models\Product;
 use app\models\User;
 use Yii;
 
-class CartController extends \yii\web\Controller
+class CartController extends CommonController
 {
     public $layout = 'layout_parent_none';
 
