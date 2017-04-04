@@ -9,7 +9,7 @@ use Qiniu\Storage\UploadManager;
 use Qiniu\Storage\BucketManager;
 use yii\data\Pagination;
 
-class ProductController extends \yii\web\Controller
+class ProductController extends CommonController
 {
     public $layout = "admin_main";
 

@@ -4,7 +4,7 @@ namespace app\admin\controllers;
 
 use yii\web\Controller;
 
-class IndexController extends Controller
+class IndexController extends CommonController
 {
     public $defaultAction = 'index';
     public $layout = "admin_main";

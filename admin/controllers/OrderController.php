@@ -5,7 +5,7 @@ namespace app\admin\controllers;
 use app\models\Order;
 use yii\data\Pagination;
 
-class OrderController extends \yii\web\Controller
+class OrderController extends CommonController
 {
     public $layout = "admin_main";
 
