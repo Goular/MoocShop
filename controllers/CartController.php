@@ -3,8 +3,10 @@
 namespace app\controllers;
 
 use app\models\Cart;
+use app\models\Order;
 use app\models\Product;
 use app\models\User;
+use dzer\express\Express;
 use Yii;
 
 class CartController extends CommonController
@@ -89,5 +91,30 @@ class CartController extends CommonController
         $cartid = \Yii::$app->request->get('cartid');
         Cart::deleteAll('cartid = :cid', [':cid' => $cartid]);
         return $this->redirect(['cart/index']);
+    }
+
+    /**
+     * 获取邮政的内容
+     */
+    public function actionGetexpress()
+    {
+        $expressno = Yii::$app->request->get('expressno');
+        $res = Express::search($expressno);
+        echo $res;
+        exit();
+    }
+
+    /**
+     * 前台确认收货的方法
+     */
+    public function actionReceived()
+    {
+        $orderid = Yii::$app->request->get('orderid');
+        $order = Order::find()->where('orderid = :oid', [':oid' => $orderid])->one();
+        if (!empty($order) && $order->status == Order::SENDED) {
+            $order->status = Order::RECEIVED;
+            $order->save();
+        }
+        return $this->redirect(['order/index']);
     }
 }

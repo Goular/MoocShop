@@ -639,3 +639,17 @@
 <pre>
     页面如果想获取不是从render传递过来的参数，可以使用$this->view->params['tui']=$tui,这样页面就可以直接使用，该方法的使用一般都是在基类控制方法中会常用，因为基类方法，很少调用$this->render('',[]);
 </pre>
+
+### 获取邮政的消息
+<pre>
+    composer require dzer/yii2-express
+    
+    基本使用:
+    
+    <?php
+    use dzer\express\Express;
+    
+    //Express::search('快递单号','快递公司代码（可空）','返回格式（可空）');
+    $rs = Express::search('807209844896');
+    不传递快递公司代码时，会自动判断快递单号所属快递公司，默认返回json.
+</pre>

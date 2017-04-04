@@ -245,7 +245,7 @@
 
                                             <div class="col-xs-12 col-sm-3 no-margin">
                                                 <a href="<?php echo yii\helpers\Url::to(['product/detail', 'productid' => $pro->productid]) ?>" class="thumb-holder">
-                                                    <img alt="<?php echo $pro->title ?>" src="<?php echo $pro->cover ?>" data-echo="<?php echo $pro->cover ?>-picsmall" />
+                                                    <img alt="<?php echo $pro->title ?>" src="<?php echo $pro->cover ?>" data-echo="<?php echo $pro->cover ?>" />
                                                 </a>
                                             </div>
                                         </div>
@@ -275,7 +275,7 @@
 
                                             <div class="col-xs-12 col-sm-3 no-margin">
                                                 <a href="<?php echo yii\helpers\Url::to(['product/detail', 'productid' => $pro->productid]) ?>" class="thumb-holder">
-                                                    <img alt="<?php echo $pro->title ?>" src="<?php echo $pro->cover ?>" data-echo="<?php echo $pro->cover ?>-picsmall" />
+                                                    <img alt="<?php echo $pro->title ?>" src="<?php echo $pro->cover ?>" data-echo="<?php echo $pro->cover ?>" />
                                                 </a>
                                             </div>
                                         </div>
@@ -305,7 +305,7 @@
 
                                             <div class="col-xs-12 col-sm-3 no-margin">
                                                 <a href="<?php echo yii\helpers\Url::to(['product/detail', 'productid' => $pro->productid]) ?>" class="thumb-holder">
-                                                    <img alt="<?php echo $pro->title ?>" src="<?php echo $pro->cover ?>" data-echo="<?php echo $pro->cover ?>-picsmall" />
+                                                    <img alt="<?php echo $pro->title ?>" src="<?php echo $pro->cover ?>" data-echo="<?php echo $pro->cover ?>" />
                                                 </a>
                                             </div>
                                         </div>
