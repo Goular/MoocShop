@@ -101,3 +101,11 @@ use yii\helpers\Html;
     </div><!-- /.container -->
 </main><!-- /.authentication -->
 <!-- ========================================= MAIN : END ========================================= -->
+
+<!-- 添加Github登录的内容 -->
+<script>
+    var loginQQ = document.getElementById('login_qq');
+    loginQQ.onclick = function () {
+        window.location.href = "<?php echo \yii\helpers\Url::to(['member/oauth',['']])?>";
+    };
+</script>

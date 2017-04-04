@@ -65,6 +65,22 @@ $config = [
                 "<controller:[-\w]+>/<action:[-\w]+>/<id:\d+>" => "<controller>/<action>",
                 "<controller:[-\w]+>/<action:[-\w]+>" => "<controller>/<action>"
             ],
+        ],
+        'authClientCollection' => [
+            'class' => 'yii\authclient\Collection',
+            'clients' => [
+                'google' => [
+                    'class' => 'yii\authclient\clients\Google',
+                    'clientId' => 'google_client_id',
+                    'clientSecret' => 'google_client_secret',
+                ],
+                'github' => [
+                    'class' => 'yii\authclient\clients\GitHub',
+                    'clientId' => 'faf6c707f0b1f1dc9823',
+                    'clientSecret' => 'd959cb1123b950885d394db6f111bda38d2a7877',
+                ],
+
+            ],
         ]
     ],
     'params' => $params,

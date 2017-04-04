@@ -3,9 +3,29 @@
 namespace app\controllers;
 
 use app\models\User;
+use app\components\GithubAuthHandler;
 
 class MemberController extends CommonController
 {
+    public function actions()
+    {
+        return [
+            'oauth' => [
+                'class' => 'yii\authclient\AuthAction',
+                'successCallback' => [$this, 'onAuthSuccess'],
+            ],
+        ];
+    }
+
+    //登录成功回调的内容
+    public function onAuthSuccess($client)
+    {
+        echo "<pre>";
+        echo $client;
+        echo "</pre>";
+        //(new GithubAuthHandler($client))->handle();
+    }
+
     public function actionAuth()
     {
         $this->layout = "layout_parent_nav";
@@ -53,4 +73,10 @@ class MemberController extends CommonController
         return $this->render('auth', ['model' => $model]);
     }
 
+    //GitHub三方登陆
+    public function actionGithub_login()
+    {
+        echo "332211";
+        exit();
+    }
 }
