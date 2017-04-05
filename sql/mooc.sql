@@ -140,3 +140,6 @@ CREATE TABLE IF NOT EXISTS `shop_address`(
     `createtime` INT UNSIGNED NOT NULL DEFAULT '0',
     KEY `shop_address_userid`(`userid`)
 )ENGINE = INNODB DEFAULT CHARSET = utf8;
+
+-- 为用户表授权添加user表字段，用作保存openid --
+ALTER TABLE `shop_user` ADD `openid` VARCHAR(100) NULL AFTER `username`;
