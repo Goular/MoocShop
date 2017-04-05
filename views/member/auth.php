@@ -17,7 +17,9 @@ use yii\helpers\Html;
                     <div class="social-auth-buttons">
                         <div class="row">
                             <div class="col-md-6">
-                                <button class="btn-block btn-lg btn btn-facebook"><i class="fa fa-qq"></i> 使用QQ账号登录
+                                <button id="login_github" class="btn-block btn-lg btn btn-facebook"><i
+                                            class="fa fa-qq"></i>
+                                    使用github账号登录
                                 </button>
                             </div>
                             <div class="col-md-6">
@@ -104,8 +106,8 @@ use yii\helpers\Html;
 
 <!-- 添加Github登录的内容 -->
 <script>
-    var loginQQ = document.getElementById('login_qq');
-    loginQQ.onclick = function () {
-        window.location.href = "<?php echo \yii\helpers\Url::to(['member/oauth',['']])?>";
+    var loginGithub = document.getElementById('login_github');
+    loginGithub.onclick = function () {
+        window.location.href = "<?php echo \yii\helpers\Url::to(['member/oauth', 'authclient' => 'github'])?>";
     };
 </script>
