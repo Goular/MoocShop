@@ -18,7 +18,7 @@ use yii\web\Controller;
  * @package app\admin\controllers
  * 用户管理的控制器类
  */
-class ManageController extends Controller
+class ManageController extends CommonController
 {
     //设置默认不需要模板
     public $layout = "admin_main";

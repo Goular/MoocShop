@@ -7,7 +7,7 @@ use app\models\User;
 use yii\data\Pagination;
 use yii\db\Exception;
 
-class UserController extends \yii\web\Controller
+class UserController extends CommonController
 {
     public $layout = "admin_main";
 

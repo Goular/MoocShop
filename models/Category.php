@@ -135,4 +135,15 @@ class Category extends \yii\db\ActiveRecord
         $tree = $this->getTree($data);//排序
         return $tree = $this->setPrefix($tree);
     }
+
+    public static function getMenu()
+    {
+        $top = self::find()->where("parentid = :pid", [":pid" => 0])->limit(11)->orderBy('createtime asc')->asArray()->all();
+        $data = [];
+        foreach ((array)$top as $k => $cate) {
+            $cate['children'] = self::find()->where("parentid = :pid", [":pid" => $cate['cateid']])->limit(10)->asArray()->all();
+            $data[$k] = $cate;
+        }
+        return $data;
+    }
 }

@@ -586,3 +586,78 @@
 
     4.以上配置完毕后，web/index.php?r=admin-user/update&id=1就可以使用path化的路由去访问，变成web/admin-user/update/1.html，当然原来的访问方式依然有效
 </pre>
+
+### Controller 必须每个类在创建的时候都会执行的方法
+<pre>
+    public function init();//这是一个类的前置方法
+</pre>
+
+### 使用Controller的init方法来进行所有控制类的基类继承，这样做权限管理会容易做
+
+
+### 首页目录的显示
+<pre>
+    值得注意的是，使用Controller的基类方法init()中添加参数时使用$this->param['obj']的时候，
+    在页面我们调用相关的的obj参数时，我们需要做的内容时，不能直接像普通使用页面传递的内容的那样使用$obj来调用，
+    而是应该在页面的php文件中使用$this->param['obj']
+</pre>
+
+### 如何查看拼接好的原生的sql语句
+<pre>
+    yii2如何输出具体的查询的sql语句：
+    
+    $query = User::find() ->where(['id'=>[1,2,3,4]) ->select(['username'])
+    
+    // 输出SQL语句
+    
+    $commandQuery = clone $query;
+    
+    echo $commandQuery->createCommand()->getRawSql(); $users = $query->all();
+</pre>
+
+### SQL语句的使用总结
+<pre>
+    "``"符号为字段/索引/函数/存储过程 名称专用,用单引号创建表的字段时会报错
+</pre>
+
+### 邮件定价
+<pre>
+    可以使用数据包，但是我们暂时使用params.php中的数据来添加内容
+        'express' => [
+            1 => '中通快递',
+            2 => '顺丰快递',
+            3 => '包邮'
+        ],
+        'expressPrice' => [
+            1 => 15,
+            2 => 20,
+            3 => 0
+        ]
+</pre>
+
+### $this->view->params
+<pre>
+    页面如果想获取不是从render传递过来的参数，可以使用$this->view->params['tui']=$tui,这样页面就可以直接使用，该方法的使用一般都是在基类控制方法中会常用，因为基类方法，很少调用$this->render('',[]);
+</pre>
+
+### 获取邮政的消息
+<pre>
+    composer require dzer/yii2-express
+    
+    基本使用:
+    
+    <?php
+    use dzer\express\Express;
+    
+    //Express::search('快递单号','快递公司代码（可空）','返回格式（可空）');
+    $rs = Express::search('807209844896');
+    不传递快递公司代码时，会自动判断快递单号所属快递公司，默认返回json.
+</pre>
+
+### 学习总结
+<pre>
+    1.支付宝的支付没有做好
+    2.第三方登录我没有做好，仅仅做了github
+    
+    整个课程下来比较属于中等合适吧
+</pre>    

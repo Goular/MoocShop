@@ -4,7 +4,7 @@ namespace app\admin\controllers;
 
 use app\models\Category;
 
-class CategoryController extends \yii\web\Controller
+class CategoryController extends CommonController
 {
     public $layout = "admin_main";
 

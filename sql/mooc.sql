@@ -80,3 +80,66 @@ ALTER TABLE `shop_product`
 ADD `ison` ENUM('0','1') NOT NULL DEFAULT '0' AFTER `ishot`,
 -- 商品是否上下架 --
 ADD `istui` ENUM('0','1') NOT NULL DEFAULT '0' AFTER `ison`;
+
+-- 购物车的内容 --
+DROP TABLE IF EXISTS `shop_cart`;
+CREATE TABLE IF NOT EXISTS `shop_cart`(
+    `cartid` bigint unsigned not  null auto_increment,
+    `productid` bigint unsigned not null default '0',
+    `productnum` int(10) unsigned null default '0',
+    `price` decimal(10,2) not null default '0.00',
+    `userid` bigint unsigned not null default '0',
+    `createtime` int(10) unsigned not null default '0',
+    primary key(`cartid`),
+    key shop_cart_productid (`productid`),
+    key shop_cart_userid(`userid`)
+)ENGINE = INNODB DEFAULT CHARSET = utf8;
+
+-- 订单表设计 --
+DROP TABLE IF EXISTS `shop_order`;
+CREATE TABLE IF NOT EXISTS `shop_order`(
+    `orderid` bigint unsigned not null auto_increment primary key comment '订单ID',
+    `userid` bigint unsigned not null default '0' comment '用户ID',
+    `addressid` bigint unsigned not null default '0',
+    `amount` decimal(10,2) not null default '0.00',
+    `status` int unsigned not null default '0',
+    `expressid` int unsigned not null default '0',
+    `expressno` varchar(50) not null default '' comment '邮递的快递单号',
+    `createtime` int unsigned not null default '0',
+    `updatetime` timestamp not null default current_timestamp on update current_timestamp,
+    key shop_order_userid(`userid`),
+    key shop_order_addressid(`addressid`),
+    key shop_order_expressid(`expressid`)
+)ENGINE = INNODB DEFAULT CHARSET = utf8;
+
+-- 订单详情表设计 --
+DROP TABLE IF EXISTS `shop_order_detail`;
+CREATE TABLE IF NOT EXISTS `shop_order_detail`(
+    `detailid` BIGINT unsigned NOT NULL auto_increment primary key,
+    `productid` bigint unsigned not null default '0',
+    `price` decimal(10,2) not null default '0.00',
+    `productnum` int unsigned not null default '0',
+    `orderid` bigint unsigned not null default '0',
+    `createtime` int unsigned not null default '0',
+    key `shop_order_detail_productid`(`productid`),
+    key `shop_order_detail_orderid`(`orderid`)
+)ENGINE = INNODB DEFAULT CHARSET = utf8;
+
+-- 地址详情表设计 --
+DROP TABLE IF EXISTS `shop_address`;
+CREATE TABLE IF NOT EXISTS `shop_address`(
+    `addressid` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `firstname` VARCHAR(32) NOT NULL DEFAULT '',
+    `lastname` VARCHAR(32) NOT NULL DEFAULT '',
+    `company` VARCHAR(100) NOT NULL DEFAULT '',
+    `address` TEXT,
+    `postcode` CHAR(6) NOT NULL DEFAULT '',
+    `email` VARCHAR(100) NOT NULL DEFAULT '',
+    `telephone` VARCHAR(20) NOT NULL DEFAULT '',
+    `userid` BIGINT UNSIGNED NOT NULL DEFAULT '0',
+    `createtime` INT UNSIGNED NOT NULL DEFAULT '0',
+    KEY `shop_address_userid`(`userid`)
+)ENGINE = INNODB DEFAULT CHARSET = utf8;
+
+-- 为用户表授权添加user表字段，用作保存openid --
+ALTER TABLE `shop_user` ADD `openid` VARCHAR(100) NULL AFTER `username`;
