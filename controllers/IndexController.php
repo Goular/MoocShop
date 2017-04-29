@@ -18,4 +18,13 @@ class IndexController extends CommonController
         return $this->render("index");
     }
 
+    //提交控制的memcached的单机多实例的实验控制
+    public function actionSession(){
+        $session = \Yii::$app->session;
+        $session->open();
+        //$session['goular.name']="zhaojingtao";
+        //echo $session["goular.name"];
+        echo $session->getId();
+        $session->close();
+    }
 }
