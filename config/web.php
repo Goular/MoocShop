@@ -81,6 +81,30 @@ $config = [
                 ],
 
             ],
+        ],
+        'memcache' => [
+            'class' => 'yii\caching\MemCache',
+            'servers' => [
+                [
+                    'host' => '192.168.148.156',
+                    'port' => 11211,
+                    'weight' => 40,
+                ],
+                [
+                    'host' => '192.168.148.156',
+                    'port' => 11212,
+                    'weight' => 30,
+                ],
+                [
+                    'host' => '192.168.148.156',
+                    'port' => 11213,
+                    'weight' => 30,
+                ]
+            ],
+        ],
+        'session' => [
+            'class' => 'yii\web\CacheSession',
+            'cache' => 'memcache',
         ]
     ],
     'params' => $params,
