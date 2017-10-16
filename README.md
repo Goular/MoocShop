@@ -9,6 +9,49 @@
     php composer.phar create-project yiisoft/yii2-app-basic basic 2.0.11
 </pre>
 
+### YII2如何在虚拟主机上运行
+<pre>
+	就目前而言我仅仅是将basic放到虚拟主机上，将basic项目内容全部放到虚拟主机根目录，然后的话添加.htaccess添加转跳到web文件夹下的index.php的语句即可
+	
+	.htaccess文件夹内容
+	
+	Options +FollowSymLinks
+	IndexIgnore */*
+
+	RewriteEngine on
+
+	# if a directory or a file exists, use it directly
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteCond %{REQUEST_FILENAME} !-d
+
+	# otherwise forward it to index.php
+	RewriteRule . ./web/index.php
+</pre>
+
+### 虚拟主机如何将HTTP访问直接转跳到HTTPS访问
+<pre>
+	使用的是301/302的重定向转网址设置，在.htacess文件上创建即可
+	
+	当你的站点使用了HTTPS之后，你可能会想把所有的HTTP请求（即端口80的请求），全部都重定向至HTTPS（即端口443）。这时候你可以用以下的方式来做到：（Apache mod_rewrite）
+	<IfModule mod_rewrite.c>
+	 RewriteEngine On
+	 RewriteBase /
+	 RewriteCond %{SERVER_PORT} 80
+	 RewriteRule ^(.*)$ https://jb51.net/$1 [R=301,L]
+	</IfModule>
+	把这段代码放在.htaccess文件，即可实现HTTP到HTTPS的重定向。
+	而当你又想用回HTTP的时候，反过来就可以了：
+
+	<IfModule mod_rewrite.c>
+	 RewriteEngine On
+	 RewriteBase /
+	 RewriteCond %{SERVER_PORT} 443
+	 RewriteRule ^(.*)$ http://jb51.net/$1 [R=301,L]
+	</IfModule>
+	其中R=301表示Moved Permanently，即告诉搜索引擎或者浏览器下去直接访问后者的地址，如果只是试验性地重定向，可以使用R=302(Found)。
+</pre>
+
+
 ### 部分Action中不渲染layout的方法
 <pre>
     方法(1):在Action中添加一句$this->layout = false;
@@ -654,6 +697,9 @@
     不传递快递公司代码时，会自动判断快递单号所属快递公司，默认返回json.
 </pre>
 
+
+### 
+
 ### 学习总结
 <pre>
     1.支付宝的支付没有做好
@@ -661,3 +707,4 @@
     
     整个课程下来比较属于中等合适吧
 </pre>    
+
